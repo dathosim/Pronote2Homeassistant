@@ -13,5 +13,10 @@ Il génère un fichier pronote_edt_eleve.json qu'il dépose dans /config/www/
 Copier/coller le fichier configuration.yaml fourni dans ce repo dans votre configuration HA 
 N'oubliez pas de mettre la bonne adresse IP interne de votre HA (ne pas laisser 192.168.XX.XX)
 
+3. Premier test du sensor Emploi du temps
 
+Tester avec le Developer Tools de HA, le  sensor.edt_aujourdhui_demo
+
+Il doit vous renvoyer, la date et l'heure du premier cour dans state
+Et le reste dans state_attributes
 
