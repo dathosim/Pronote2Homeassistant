@@ -1,0 +1,40 @@
+sensor:
+
+  - platform: rest
+    name: edt_aujourdhui_demo 
+    scan_interval: 10
+    json_attributes:
+      - edt_aujourdhui
+    value_template: >
+        {% if value_json.edt_aujourdhui.0 is defined %}
+            {{ value_json.edt_aujourdhui.0.date_heure }}
+        {% else %}
+            None
+        {% endif %}
+    resource: http://192.168.XX.XX:8123/local/pronote_edt_demo.json
+    
+  - platform: rest
+    name: edt_demain_demo 
+    scan_interval: 10
+    json_attributes:
+      - edt_demain
+    value_template: >
+        {% if value_json.edt_demain.0 is defined %}
+            {{ value_json.edt_demain.0.date_heure }}
+        {% else %}
+            None
+        {% endif %}
+    resource: http://192.168.XX.XX:8123/local/pronote_edt_demo.json
+    
+  - platform: rest
+    name: edt_prochainjour_demo 
+    scan_interval: 10
+    json_attributes:
+      - edt_prochainjour
+    value_template: >
+        {% if value_json.edt_prochainjour.0 is defined %}
+            {{ value_json.edt_prochainjour.0.date_heure }}
+        {% else %}
+            None
+        {% endif %}
+    resource: http://192.168.XX.XX:8123/local/pronote_edt_demo.json
