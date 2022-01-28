@@ -1,11 +1,13 @@
 # Pronote dans Homeassistant
-Ceci est un tutoriel pour vous aider à intégrer des éléments de Pronote dans Home assistant !
+Ceci est un tutoriel pour intégrer Pronote dans Home assistant !
+ 
+![Lovelace](screen-pronote1.png?raw=true "Screen Shot")
 
-Rappel : Pronote est une application en ligne déployée dans plusieurs milliers de collège et lycée français
-Elle permet au élève de voir son emploi du temps, ses notes et ses devoirs
+Rappel : Pronote est une application en ligne déployée dans plusieurs milliers de collèges et lycées français. 
+Elle permet aux élèves de voir leurs emploi du temps, leurs notes et leurs devoirs. 
 Vous pouvez voir une démo de l'application à l'adresse suivante : 
-https://demo.index-education.net/pronote/eleve.html?login=true
-utlisateur : demonstration
+https://demo.index-education.net/pronote/eleve.html?login=true 
+utlisateur : demonstration 
 mot de passe : pronotevs 
 
 L'idée consiste donc à remonter ces informations (emploi du temps, note, devoirs...) dans HA pour créer des automatisations comme : 
@@ -19,9 +21,9 @@ L'idée consiste donc à remonter ces informations (emploi du temps, note, devoi
 - Avoir quelques bases en Python
 
 ## Principe de base : 
-- Un script python qui se connecter avec la lib pronotepy à Pronote et récupère les données dans un fichier JSON
-- Plusieurs sensor REST dans la configuration de HA qui se connecte en local au fichier JSON récupéré 
-- Des Card Markdown dans Lovelace pour afficher les données
+- Un script python qui se connecte avec la lib pronotepy à Pronote et récupère les données dans un fichier JSON
+- Plusieurs sensor REST dans la configuration de HA qui se connectent en local au fichier JSON récupéré 
+- Des Card Markdown dans Lovelace pour afficher les données 
 
 ## 1. Installation du script python 
 
@@ -39,13 +41,15 @@ Exemple : */10 * * * * /usr/bin/python3 /usr/share/hassio/homeassistant/python_s
 
 Je fourni donc un fichier configuration.yaml [configuration.yaml](configuration.yaml)  à copier à l'intérieur de celui de votre HA.
 Attention : N'oubliez pas de mettre la bonne adresse IP interne de votre HA (ne pas laisser 192.168.XX.XX)
-Et renommer pour changer demo avec le nom qu vous voulez
+Et renommer pour changer "demo" avec le nom qu vous voulez (votre enfant)
 
 
 ## 3. Test des sensors avec le Developper Tools de HA
 
-Tester les sensor qui commencent par "pronote" avec  le Developer Tools de Home assistant
-![DevTools](screen-devtools.png?raw=true "Screen Shot")
+Tester les sensors qui commencent par "pronote" avec  le Developer Tools de Home assistant
+
+<img src="screen-devtools.png?raw=true" alt="devtools" width="100"/>
+
 
 
 ## 3. Affichage dans les cartes Lovelace
