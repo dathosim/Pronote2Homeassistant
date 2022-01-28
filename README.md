@@ -1,36 +1,52 @@
 # Pronote dans Homeassistant
-Ceci est un tutoriel poour vous aider à intégrer des éléments de Pronote dans Home assistant
+Ceci est un tutoriel pour vous aider à intégrer des éléments de Pronote dans Home assistant !
 
 Rappel : Pronote est une application en ligne déployée dans plusieurs milliers de collège et lycée français
 Elle permet au élève de voir son emploi du temps, ses notes et ses devoirs
+Vous pouvez voir une démo de l'application à l'adresse suivante : 
+https://demo.index-education.net/pronote/eleve.html?login=true
+utlisateur : demonstration
+mot de passe : pronotevs 
 
-L'idée consiste donc à remonter ces informations dans HA pour créer des automatisations comme : 
+L'idée consiste donc à remonter ces informations (emploi du temps, note, devoirs...) dans HA pour créer des automatisations comme : 
 - Régler l'heure de son réveil avec l'heure de début des cours du lendemain
 - Envoyer une notification (mobile, sms ou autre) si l'élève a une nouvelle note 
 - Envoyer une notification si un cours est annulé (voir décaler l'heure du réveil)
+
 
 ## Pré-requis :
 - Connaitre un minimum HomeAssistant
 - Avoir quelques bases en Python
 
-## 1. Installation des scripts Python
+## Principe de base : 
+- Un script python qui se connecter avec la lib pronotepy à Pronote et récupère les données dans un fichier JSON
+- Plusieurs sensor REST dans la configuration de HA qui se connecte en local au fichier JSON récupéré 
+- Des Card Markdown dans Lovelace pour afficher les données
 
-Installer le script python [pronote.py](pronote.py)  et le faire tourner sur le serveur HA
-Personnelement, je le fais tourner dans un dossier /python_scripts/ sous le /config de HA 
+## 1. Installation du script python 
 
-Il génère un fichier pronote_edt_eleve.json qu'il dépose dans /config/www/
+Je mets donc à disposition un script python [pronote.py](pronote.py) 
+Ce script permet de se connecter à Pronote et récupère toutes les informations dans un JSON
+Il est initialisé avec le compte de demo de Pronote > reste à l'adapter à vos identifiants en changeant les variables au début du script.
+Il faut donc installer ce script dans un dossier (nommé par exemple "python_script") dans le dossier /config de votre HA.
+Ce script quand il est lancé génère un fichier pronote_AAAA.json qu'il dépose dans /config/www/ de votre HA
+NB : AAAA est le nom de l'élève à paramétré dans le script 
+
+Il doit ensuite être lancé de façon régulière - toute les 5 ou 10 minutes - via la crontab par exemple
+Exemple : */10 * * * * /usr/bin/python3 /usr/share/hassio/homeassistant/python_scripts/pronote_demo.py > /tmp/pronote_demo.log 2>&1
 
 ## 2. Configuration YAML pour récupérer l'emploi du temps dans un sensor
 
-Copier/coller le fichier configuration.yaml fourni dans ce repo dans votre configuration HA 
-N'oubliez pas de mettre la bonne adresse IP interne de votre HA (ne pas laisser 192.168.XX.XX)
+Je fourni donc un fichier configuration.yaml [configuration.yaml](configuration.yaml)  à copier à l'intérieur de celui de votre HA.
+Attention : N'oubliez pas de mettre la bonne adresse IP interne de votre HA (ne pas laisser 192.168.XX.XX)
+Et renommer pour changer demo avec le nom qu vous voulez
 
-## 3. Premier test du sensor Emploi du temps
 
-Tester avec le Developer Tools de HA, le  sensor.edt_aujourdhui_demo
+## 3. Test des sensors avec le Developper Tools de HA
 
-Il doit vous renvoyer, la date et l'heure du premier cour dans state
-Et le reste dans state_attributes
+Tester les sensor qui commencent par "pronote" avec  le Developer Tools de Home assistant
+![DevTools](screen-devtools.png?raw=true "Screen Shot")
+
 
 ## 3. Affichage dans les cartes Lovelace
 

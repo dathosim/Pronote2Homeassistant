@@ -1,4 +1,3 @@
-    cards:
       - type: markdown
         content: |-
           <div>Emploi du temps d'aujourd'hui </div>
@@ -254,6 +253,182 @@
                   }
                   tr:last-of-type {
                       border-bottom: transparent;          }*
+                  mark {
+                      background: #009767;
+                      color: #222627;
+                      border-radius: 5px;
+                      padding: 5px;
+                  }
+                  span {
+                      background: #EC4B34;
+                      color: #222627;
+                      border-radius: 5px;
+                      padding: 5px;
+                  }
+                  span {
+                      padding: 5px;
+                  }
+                  tr:nth-child(n+2) > td:nth-child(2) {
+                    text-align: left;
+                  }
+      - type: markdown
+        content: |-
+          <div>Notes</div>
+          <table>
+              <tbody>
+                  {%-for attr in states.sensor.pronote_note_demo.attributes.note -%}
+                  <tr>
+                      <td>{{state_attr('sensor.pronote_note_demo', 'note')[loop.index-1]['date_courte']}}</td>
+                      <td>{{state_attr('sensor.pronote_note_demo', 'note')[loop.index-1]['cours']}}</td>
+                      <td width="25%">{{state_attr('sensor.pronote_note_demo', 'note')[loop.index-1]['note_sur']}}</td>
+                      <td>(moy:{{state_attr('sensor.pronote_note_demo', 'note')[loop.index-1]['moyenne_classe']}})</td>
+                  </tr>
+                  {% endfor %}
+            </tbody>
+          </table>
+        card_mod:
+          style:
+            .: |
+              ha-card ha-markdown {
+                padding:0px
+              }
+              ha-card ha-markdown.no-header {
+                padding:0px
+              }
+            ha-markdown:
+              $:
+                ha-markdown-element: |
+                  h1 {
+                      font-weight: normal;
+                      font-size: 24px;
+                  }
+                  div {
+                      background-color:rgb(100, 100, 100);
+                      padding: 12px 12px;
+                      color:white;
+                      font-weight:normal;
+                      font-size:1.2em;
+                      border-top-left-radius: 5px; 
+                      border-top-right-radius: 5px; 
+                  }
+                  table{
+                    border-collapse: collapse;
+                    font-size: 0.9em;
+                    font-family: Roboto;
+                    width: auto;
+                    outline: 0px solid #393c3d;
+                    margin-top: 10px;
+                  } caption {
+                      text-align: center;
+                      font-weight: bold;
+                      font-size: 1.2em;
+                  } td {
+                      padding: 5px 5px 5px 5px;
+                      text-align: left;
+                      border-bottom: 0px solid #1c2020;
+                  }
+                  tr {
+                      border-bottom: 0px solid #1c2020;
+                  }
+
+                  tr:nth-of-type(even) {
+                      background-color: rgb(54, 54, 54, 0.3);
+                  }
+                  tr:last-of-type {
+                      border-bottom: transparent;
+                  }
+                  mark {
+                      background: #009767;
+                      color: #222627;
+                      border-radius: 10px;
+                      padding: 5px;
+                  }
+                  span {
+                      background: #EC4B34;
+                      color: #222627;
+                      border-radius: 10px;
+                      padding: 5px;
+                  }
+                  span {
+                      padding: 5px;
+                  }
+                  tr:nth-child(n+2) > td:nth-child(2) {
+                    text-align: left;
+                  }
+      - type: markdown
+        content: |-
+          <div>Devoirs</div>
+          <table>
+              <tbody>
+                  {%-for attr in states.sensor.pronote_devoir_demo.attributes.devoir -%}
+                  <tr>
+                      <td>
+                      {%- if state_attr('sensor.pronote_devoir_demo', 'devoir')[loop.index-1]['done'] == true -%}
+                          <mark>
+                          {{state_attr('sensor.pronote_devoir_demo', 'devoir')[loop.index-1]['date']}}
+                          </mark>
+                      {%- else -%}
+                          <span>
+                          {{state_attr('sensor.pronote_devoir_demo', 'devoir')[loop.index-1]['date']}}
+                          </span>
+                      {% endif %}</td>              
+                      <td>{{state_attr('sensor.pronote_devoir_demo', 'devoir')[loop.index-1]['title']}}</td>
+                      <td>{{state_attr('sensor.pronote_devoir_demo', 'devoir')[loop.index-1]['description']}}</td>
+                  </tr>
+                  {% endfor %}
+            </tbody>
+          </table>
+        card_mod:
+          style:
+            .: |
+              ha-card ha-markdown {
+                padding:0px
+              }
+              ha-card ha-markdown.no-header {
+                padding:0px
+              }
+            ha-markdown:
+              $:
+                ha-markdown-element: |
+                  h1 {
+                      font-weight: normal;
+                      font-size: 24px;
+                  }
+                  div {
+                      background-color:rgb(100, 100, 100);
+                      padding: 12px 12px;
+                      color:white;
+                      font-weight:normal;
+                      font-size:1.2em;
+                        border-top-left-radius: 5px; 
+                        border-top-right-radius: 5px; 
+                  }
+                  table{
+                    border-collapse: collapse;
+                    font-size: 0.9em;
+                    font-family: Roboto;
+                    width: auto;
+                    outline: 0px solid #393c3d;
+                    margin-top: 10px;
+                  } caption {
+                      text-align: center;
+                      font-weight: bold;
+                      font-size: 1.2em;
+                  } td {
+                      padding: 5px 5px 5px 5px;
+                      text-align: left;
+                      border-bottom: 0px solid #1c2020;
+                  }
+                  tr {
+                      border-bottom: 0px solid #1c2020;
+                  }
+
+                  tr:nth-of-type(even) {
+                      background-color: rgb(54, 54, 54, 0.3);
+                  }
+                  tr:last-of-type {
+                      border-bottom: transparent;
+                  }
                   mark {
                       background: #009767;
                       color: #222627;
