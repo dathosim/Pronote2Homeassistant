@@ -11,6 +11,10 @@ prefix_url = "demo"
 username="demonstration"
 password="pronotevs"
 
+index_note=0
+limit_note=11
+longmax_devoir = 125
+
 #Connection à Pronote 
 client = pronotepy.Client('https://'+prefix_url+'.index-education.net/pronote/eleve.html?login=true', username, password)
 
@@ -79,13 +83,52 @@ if client.logged_in:
             'background_color': lesson.background_color,
     })
 
-    #Stockage dans un fichier json 
+    #Récupération des notes 
+    grades = client.current_period.grades
+    grades = sorted(grades, key=lambda grade: grade.date, reverse=True)
+
+    #Transformation des notes en Json
+    jsondata['note'] = []
+    for grade in grades:
+        index_note += 1
+        if index_note == limit_note:
+            break
+        jsondata['note'].append({
+            'date': grade.date.strftime("%d/%m/%Y"),
+            'date_courte': grade.date.strftime("%d/%m"),            
+            'cours': grade.subject.name,
+            'note': grade.grade,            
+            'sur': grade.out_of,
+            'note_sur': grade.grade+'\u00A0/\u00A0'+grade.out_of,
+            'coeff': grade.coefficient,
+            'moyenne_classe': grade.average,           
+            'max': grade.max,
+            'min': grade.min,
+
+    })
+
+    #Récupération des devoirs
+    homework_today = client.homework(date.today())
+    homework_today = sorted(homework_today, key=lambda lesson: lesson.date)
+    jsondata['hw'] = []
+
+    #Transformation des devoirs  en Json   
+    for homework in homework_today:
+        jsondata['hw'].append({
+            'date': homework.date.strftime("%d/%m"),
+            'title': homework.subject.name,
+            'description': (homework.description)[0:longmax_devoir],
+            'description_longue': (homework.description),
+            'done' : homework.done,            
+    })
+
+
+
+    #Stockage dans un fichier json : edt + notes + devoirs 
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    with open(os.path.join(__location__, "../www/pronote_edt_"+eleve+".json"), "a") as outfile:
+    with open(os.path.join(__location__, "./pronote_"+eleve+".json"), "a") as outfile:
         outfile.truncate(0)
         json.dump(jsondata, outfile, indent=4)
-
-
 
 
     
