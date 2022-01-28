@@ -48,7 +48,7 @@ Et renommer pour changer "demo" avec le nom qu vous voulez (votre enfant)
 
 Tester les sensors qui commencent par "pronote" avec  le Developer Tools de Home assistant
 
-<img src="screen-devtools.png?raw=true" alt="devtools" width="100"/>
+<img src="screen-devtools.png?raw=true" alt="devtools" width="300"/>
 
 
 
