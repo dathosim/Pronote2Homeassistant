@@ -15,7 +15,7 @@ L'idée consiste donc à remonter ces informations dans HA pour créer des autom
 
 ## 1. Installation des scripts Python
 
-Installer le script python [pronote_edt.py](pronote_edt.py)  et le faire tourner sur le serveur HA
+Installer le script python [pronote.py](pronote.py)  et le faire tourner sur le serveur HA
 Personnelement, je le fais tourner dans un dossier /python_scripts/ sous le /config de HA 
 
 Il génère un fichier pronote_edt_eleve.json qu'il dépose dans /config/www/
