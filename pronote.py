@@ -110,11 +110,11 @@ if client.logged_in:
     #Récupération des devoirs
     homework_today = client.homework(date.today())
     homework_today = sorted(homework_today, key=lambda lesson: lesson.date)
-    jsondata['hw'] = []
+    jsondata['devoir'] = []
 
     #Transformation des devoirs  en Json   
     for homework in homework_today:
-        jsondata['hw'].append({
+        jsondata['devoir'].append({
             'date': homework.date.strftime("%d/%m"),
             'title': homework.subject.name,
             'description': (homework.description)[0:longmax_devoir],
@@ -126,7 +126,7 @@ if client.logged_in:
 
     #Stockage dans un fichier json : edt + notes + devoirs 
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    with open(os.path.join(__location__, "./pronote_"+eleve+".json"), "a") as outfile:
+    with open(os.path.join(__location__, "../www/pronote_"+eleve+".json"), "a") as outfile:
         outfile.truncate(0)
         json.dump(jsondata, outfile, indent=4)
 
