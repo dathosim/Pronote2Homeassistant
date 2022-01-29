@@ -125,8 +125,8 @@ if client.logged_in:
 
 
     #Stockage dans un fichier json : edt + notes + devoirs 
-    __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    with open(os.path.join(__location__, "../www/pronote_"+eleve+".json"), "a") as outfile:
+    location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+    with open(os.path.join(location, "../www/pronote_"+eleve+".json"), "a") as outfile:
         outfile.truncate(0)
         json.dump(jsondata, outfile, indent=4)
 
