@@ -4,16 +4,15 @@ from datetime import date
 from datetime import timedelta 
 import json
 
+#Variables a remplacer (ou laisser comme ça pour tester la démo)
+eleve="demo" #nom de votre enfant - ne sert que pour le nom du fichier json
+prefix_url = "demo" # sert au prefix de l'url https://PREFIX.index-education.net/pronote/
+username="demonstration" #utlisateur pronote  - a remplacer par le nom d'utilisateur pronote de l'élève
+password="pronotevs" # mot de passe pronote - a remplacer par le mot de passe du compte de l'élève
 
-#Variables
-eleve="demo"
-prefix_url = "demo"
-username="demonstration"
-password="pronotevs"
-
-index_note=0
-limit_note=11
-longmax_devoir = 125
+index_note=0 
+limit_note=11 #nombre max de note à afficher + 1 
+longmax_devoir = 125 #nombre de caractère max dans la description des devoirs
 
 #Connection à Pronote 
 client = pronotepy.Client('https://'+prefix_url+'.index-education.net/pronote/eleve.html?login=true', username, password)
