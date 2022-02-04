@@ -1,7 +1,7 @@
 sensor:
 
   - platform: rest
-    name: edt_aujourdhui_demo 
+    name: pronote_edt_demo_aujourdhui 
     scan_interval: 10
     json_attributes:
       - edt_aujourdhui
@@ -14,7 +14,7 @@ sensor:
     resource: http://192.168.XX.XX:8123/local/pronote_edt_demo.json
     
   - platform: rest
-    name: edt_demain_demo 
+    name: pronote_edt_demo_demain 
     scan_interval: 10
     json_attributes:
       - edt_demain
@@ -27,7 +27,7 @@ sensor:
     resource: http://192.168.XX.XX:8123/local/pronote_edt_demo.json
     
   - platform: rest
-    name: edt_prochainjour_demo 
+    name: pronote_edt_demo_prochainjour 
     scan_interval: 10
     json_attributes:
       - edt_prochainjour
