@@ -4,7 +4,7 @@ from datetime import date
 from datetime import timedelta 
 import json
 
-#Variables a remplacer (ou laisser comme ça pour tester la démo)
+#Variables a remplacer (ou laisser comme ça pour tester la démo
 eleve="demo" #nom de votre enfant - ne sert que pour le nom du fichier json
 prefix_url = "demo" # sert au prefix de l'url https://PREFIX.index-education.net/pronote/
 username="demonstration" #utlisateur pronote  - a remplacer par le nom d'utilisateur pronote de l'élève
