@@ -61,9 +61,11 @@ Il suffit de créer un nouvel onglet dans HA et ensuite de copier coller le cont
 
 ## 4. Notification
 
-Vous trouverez dans le fichier automation.yaml des automatisation qui permettent d'être notifié (notif persistant pour l'exemple) en cas : 
+Vous trouverez dans le fichier automation.yaml des automatisations qui permettent d'être notifié (notif persistant pour l'exemple) en cas de : 
 - cours annulé aujour'hui
 - cours annulé dans du prochain jour de cours 
 - Nouvelle note 
 
 ![Lovelace](screen-pronote-notif.png?raw=true "Screen Notif")
+
+il vous suffit de créer une automatisation vide et de copier/coller chaque automatisation en mode d'edition yaml
