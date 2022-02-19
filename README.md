@@ -57,7 +57,7 @@ Tester les sensors qui commencent par "pronote" avec  le Developer Tools de Home
 Il suffit de créer un nouvel onglet dans HA et ensuite de copier coller le contenu du fichier lovelace.yaml [lovelace.yaml](lovelace.yaml) 
 
 ça doit donner ça : 
-![Lovelace](screen-pronote1.png?raw=true "Screen Shot")
+![Lovelace](screen-pronote2.png?raw=true "Screen Shot avec début des cours")
 
 ## 4. Notification
 
