@@ -66,3 +66,100 @@ sensor:
             None
         {% endif %}
     resource: http://192.168.10.13:8123/local/pronote_demo.json
+
+
+  - platform: template
+    sensors:
+        pronote_edt_demo_aujourdhui_cours_0_heure:
+            friendly_name: "Demo / Début des cours"
+            value_template: >-            
+                {% if state_attr('sensor.pronote_edt_demo_aujourdhui', 'edt_aujourdhui')[0] is defined %}
+                    {{state_attr('sensor.pronote_edt_demo_aujourdhui', 'edt_aujourdhui')[0]['heure']}}
+                {% else %}
+                    Pas cours
+                {% endif %}                
+                
+        pronote_edt_demo_demain_cours_0_heure:
+            friendly_name: "Demo / Début des cours demain"
+            value_template: >-            
+                {% if state_attr('sensor.pronote_edt_demo_demain', 'edt_demain')[0] is defined %}
+                    {{state_attr('sensor.pronote_edt_demo_demain', 'edt_demain')[0]['heure']}}
+                {% else %}
+                    Pas cours
+                {% endif %}            
+        pronote_edt_demo_prochainjour_cours_0_heure:
+            friendly_name: "Demo / Début des cours (J+1)"
+            value_template: >-
+                {% if state_attr('sensor.pronote_edt_demo_prochainjour', 'edt_prochainjour')[0] is defined %}
+                    {{state_attr('sensor.pronote_edt_demo_prochainjour', 'edt_prochainjour')[0]['heure']}}  
+                {% else %}
+                    Pas cours
+                {% endif %}        
+
+
+binary_sensor:
+
+  - platform: template
+    sensors:
+      pronote_edt_demo_aujourdhui_cours_0_annulation:
+        friendly_name: "Edt Demo Cours 0 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_aujourdhui', 'edt_aujourdhui')[0]['annulation'] }}
+      pronote_edt_demo_aujourdhui_cours_1_annulation:
+        friendly_name: "Edt Demo Cours 1 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_aujourdhui', 'edt_aujourdhui')[1]['annulation'] }}
+      pronote_edt_demo_aujourdhui_cours_2_annulation:
+        friendly_name: "Edt Demo Cours 2 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_aujourdhui', 'edt_aujourdhui')[2]['annulation'] }}
+      pronote_edt_demo_aujourdhui_cours_3_annulation:
+        friendly_name: "Edt Demo Cours 3 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_aujourdhui', 'edt_aujourdhui')[3]['annulation'] }}
+      pronote_edt_demo_aujourdhui_cours_4_annulation:
+        friendly_name: "Edt Demo Cours 4 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_aujourdhui', 'edt_aujourdhui')[4]['annulation'] }}
+      pronote_edt_demo_aujourdhui_cours_5_annulation:
+        friendly_name: "Edt Demo Cours 5 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_aujourdhui', 'edt_aujourdhui')[5]['annulation'] }}
+      pronote_edt_demo_aujourdhui_cours_6_annulation:
+        friendly_name: "Edt Demo Cours 6 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_aujourdhui', 'edt_aujourdhui')[6]['annulation'] }}
+
+  - platform: template
+    sensors:
+      pronote_edt_demo_prochain_jour_cours_0_annulation:
+        friendly_name: "Edt Demo Prochain Jour Cours 0 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_prochain_jour', 'edt_prochainjour')[0]['annulation'] }}
+      pronote_edt_demo_prochain_jour_cours_1_annulation:
+        friendly_name: "Edt Demo Prochain Jour Cours 1 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_prochain_jour', 'edt_prochainjour')[1]['annulation'] }}
+      pronote_edt_demo_prochain_jour_cours_2_annulation:
+        friendly_name: "Edt Demo Prochain Jour Cours 2 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_prochain_jour', 'edt_prochainjour')[2]['annulation'] }}
+      pronote_edt_demo_prochain_jour_cours_3_annulation:
+        friendly_name: "Edt Demo Prochain Jour Cours 3 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_prochain_jour', 'edt_prochainjour')[3]['annulation'] }}
+      pronote_edt_demo_prochain_jour_cours_4_annulation:
+        friendly_name: "Edt Demo Prochain Jour Cours 4 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_prochain_jour', 'edt_prochainjour')[4]['annulation'] }}
+      pronote_edt_demo_prochain_jour_cours_5_annulation:
+        friendly_name: "Edt Demo Prochain Jour Cours 5 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_prochain_jour', 'edt_prochainjour')[5]['annulation'] }}
+      pronote_edt_demo_prochain_jour_cours_6_annulation:
+        friendly_name: "Edt Demo Prochain Jour Cours 6 annulation"
+        value_template: >-
+          {{ state_attr('sensor.pronote_edt_demo_prochain_jour', 'edt_prochainjour')[6]['annulation'] }}
+
+
+

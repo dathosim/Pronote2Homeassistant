@@ -1,3 +1,10 @@
+      - type: entities
+        entities:
+          - entity: sensor.pronote_edt_demo_aujourdhui_cours_0_heure
+          - entity: sensor.pronote_edt_demo_demain_cours_0_heure
+          - entity: sensor.pronote_edt_demo_prochainjour_cours_0_heure
+        title: Début des cours
+
       - type: markdown
         content: |-
           <div>Emploi du temps d'aujourd'hui </div>

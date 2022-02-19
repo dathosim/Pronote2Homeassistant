@@ -1,0 +1,113 @@
+alias: Nouvelle Note Demo > Notification
+description: 'Notification persistante sur nouvelle note'
+trigger:
+  - platform: state
+    entity_id: sensor.pronote_note_demo
+condition: []
+action:
+  - service: notify.persistent_notification
+    data:
+      message: |
+        Démo, tu as une nouvelle note : {{states('sensor.pronote_note_demo')}}
+mode: single
+
+
+alias: Edt Demo Cours aujourd'hui annulé > Notification
+description: ''
+trigger:
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_aujourdhui_cours_0_annulation
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_aujourdhui_cours_1_annulation
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_aujourdhui_cours_1_annulation
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_aujourdhui_cours_3_annulation
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_aujourdhui_cours_4_annulation
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_aujourdhui_cours_5_annulation
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_aujourdhui_cours_6_annulation
+    from: 'off'
+    to: 'on'
+condition:
+  - condition: time
+    after: '00:01:00'
+    before: '23:59:00'
+action:
+  - variables:
+      idcours: '{{ trigger.entity_id.split(''_'')[6] }}'
+  - service: notify.persistent_notification
+    data:
+      message: >
+        Démo, un cours a été annulé ou déplacé aujourd'hui :
+        {{state_attr('sensor.pronote_edt_demo_aujourdhui',
+        'edt_aujourdhui')[idcours]['heure']}}
+        {{state_attr('sensor.pronote_edt_demo_aujourdhui',
+        'edt_aujourdhui')[idcours]['cours']}} 
+mode: single
+
+
+
+alias: Edt Demo Cours du prochain jour annulé > Notification
+description: ''
+trigger:
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_aujourdhui_cours_0_annulation
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_prochainjour_cours_1_annulation
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_prochainjour_cours_2_annulation
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_prochainjour_cours_3_annulation
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_prochainjour_cours_4_annulation
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_prochainjour_cours_5_annulation
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.pronote_edt_demo_prochainjour_cours_6_annulation
+    from: 'off'
+    to: 'on'
+condition:
+  - condition: time
+    after: '00:01:00'
+    before: '23:59:00'
+action:
+  - variables:
+      idcours: '{{ trigger.entity_id.split(''_'')[6] }}'
+  - service: notify.persistent_notification
+    data:
+      message: >
+        Démo, un cours a été annulé ou déplacé le
+        {{state_attr('sensor.pronote_edt_demo_prochainjour','edt_prochainjour')[idcours]['date']}}
+        : 
+        {{state_attr('sensor.pronote_edt_demo_prochainjour','edt_prochainjour')[idcours]['heure']}}
+        {{state_attr('sensor.pronote_edt_demo_prochainjour','edt_prochainjour')[idcours]['cours']}} 
+mode: single
+
+
