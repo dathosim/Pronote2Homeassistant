@@ -120,8 +120,68 @@ if client.logged_in:
             'description_longue': (homework.description),
             'done' : homework.done,            
     })
+        
+    #Récupération  des absences pour le trimestre en cours
+    absences_current = client.current_period.absences()
+    
+    #Transformation des absences en Json
+    jsondata['absences'] = []
+    for absence in absences_current:
+        jsondata['absences'].append({
 
+            'id': absence.id,  
+            'from_date_short': absence.from_date.strftime("%Y/%m/%d"),
+            'from_date': absence.from_date.strftime("%d/%m/%Y %H:%M"),
+            'to_date': absence.to_date.strftime("%d/%m/%Y %H:%M"), 
+            'justified': absence.justified, 
+            'hours': absence.hours, 
+            'days': absence.days, 
+            'reasons': absence.reasons,
 
+    })
+        
+    #Récupération  des absences pour l'année
+    all_absences = [period.absences for period in client.periods]
+    
+    #Transformation des absences pour l'année en Json
+    jsondata['absences_all'] = []
+    for period in all_absences:
+        for absence in period():
+   
+          jsondata['absences_all'].append({
+            
+            'id':(f'{absence.id}'),
+            'from_date':(f'{absence.from_date.strftime("%d/%m/%y %H:%M")}'),
+            'from_date_short':(f'{absence.from_date.strftime("%Y/%m/%d")}'),
+            'to_date':(f'{absence.to_date.strftime("%d/%m/%y %H:%M")}'),
+            'justified':(f'{absence.justified}'),
+            'hours':(f'{absence.hours}'),
+            'days':(f'{absence.days}'),
+            'reasons':(f'{absence.reasons}'),
+            
+    })
+    #Récupération  des acquisitions pour l'année
+    all_acquisitions = [period.evaluations for period in client.periods]
+    
+    #Transformation des acquisitions en Json
+    jsondata['acquisitions_all'] = []
+    for period in all_acquisitions:
+        for evaluation in period:
+            for acquisition in evaluation.acquisitions:
+   
+                jsondata['acquisitions_all'].append({
+            
+
+                     'id':(f'{acquisition.id}'),
+                     'pillar':(f'{acquisition.pillar}'),
+                     'domain':(f'{acquisition.domain}'),
+                     'order':(f'{acquisition.order}'),
+                     'level':(f'{acquisition.level}'),
+                     'abbreviation':(f'{acquisition.abbreviation}'),
+                     'coefficient':(f'{acquisition.coefficient}'),
+                     
+
+    })
 
     #Stockage dans un fichier json : edt + notes + devoirs 
     location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
