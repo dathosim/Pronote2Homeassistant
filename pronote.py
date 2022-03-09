@@ -139,6 +139,28 @@ if client.logged_in:
             'reasons': absence.reasons,
 
     })
+    #Récupération  des acquisitions pour l'année
+    all_acquisitions = [period.evaluations for period in client.periods]
+    
+    #Transformation des acquisitions en Json
+    jsondata['acquisitions_all'] = []
+    for period in all_acquisitions:
+        for evaluation in period:
+            for acquisition in evaluation.acquisitions:
+   
+                jsondata['acquisitions_all'].append({
+            
+
+                     'id':(f'{acquisition.id}'),
+                     'pillar':(f'{acquisition.pillar}'),
+                     'domain':(f'{acquisition.domain}'),
+                     'order':(f'{acquisition.order}'),
+                     'level':(f'{acquisition.level}'),
+                     'abbreviation':(f'{acquisition.abbreviation}'),
+                     'coefficient':(f'{acquisition.coefficient}'),
+                     
+
+    })
 
     #Stockage dans un fichier json : edt + notes + devoirs 
     location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
