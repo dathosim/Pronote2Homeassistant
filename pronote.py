@@ -120,8 +120,25 @@ if client.logged_in:
             'description_longue': (homework.description),
             'done' : homework.done,            
     })
+        
+    #Récupération  des absences pour le trimestre en cours
+    absences_current = client.current_period.absences()
+    
+    #Transformation des absences en Json
+    jsondata['absences'] = []
+    for absence in absences_current:
+        jsondata['absences'].append({
 
+            'id': absence.id,  
+            'from_date_short': absence.from_date.strftime("%Y/%m/%d"),
+            'from_date': absence.from_date.strftime("%d/%m/%Y %H:%M"),
+            'to_date': absence.to_date.strftime("%d/%m/%Y %H:%M"), 
+            'justified': absence.justified, 
+            'hours': absence.hours, 
+            'days': absence.days, 
+            'reasons': absence.reasons,
 
+    })
 
     #Stockage dans un fichier json : edt + notes + devoirs 
     location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
