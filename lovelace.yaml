@@ -4,6 +4,100 @@
           - entity: sensor.pronote_edt_demo_demain_cours_0_heure
           - entity: sensor.pronote_edt_demo_prochainjour_cours_0_heure
         title: Début des cours
+        
+      - type: markdown
+        content: |-
+          <div>Absences demo Vie Scolaire</div>
+          <table>
+              <tbody>
+                  {%-for attr in states.sensor.pronote_demo_absences_vie_scol.attributes.absences -%}
+                  <tr style="background-color:#FF0000"><td>
+                      {%- if state_attr('sensor.pronote_demo_absences_vie_scol', 'absences')[loop.index-2]['justified'] == 'True' -%}
+                          <mark>
+                          Du_{{state_attr('sensor.pronote_demo_absences_vie_scol', 'absences')[loop.index-2]['from_date']}}
+                          </span>
+                          </mark>
+                          Au_{{state_attr('sensor.pronote_demo_absences_vie_scol', 'absences')[loop.index-2]['to_date']}}
+                          
+                      {%- else -%}
+                          <span>
+                          Du_{{state_attr('sensor.pronote_demo_absences_vie_scol', 'absences')[loop.index-2]['from_date']}}</span>
+                          Au_{{state_attr('sensor.pronote_demo_absences_vie_scol', 'absences')[loop.index-2]['to_date']}}
+                      {% endif %}</td>
+                      <td>{{state_attr('sensor.pronote_demo_absences_vie_scol', 'absences')[loop.index-2]['reasons']}}</td>
+                      <td>
+                      {{state_attr('sensor.pronote_demo_absences_vie_scol', 'absences')[loop.index-2]['days']}}j/{{state_attr('sensor.pronote_demo_absences_vie_scol', 'absences')[loop.index-2]['hours']}}
+                      {% if not state_attr('sensor.pronote_demo_absences_vie_scol', 'absences')[loop.index-2]['justified'] == 'True' %}<span> Non_justifié</span>
+                      {% endif %}</td>
+                      <td></td>
+                  </tr>
+                  {% endfor %}
+            </tbody>
+          </table>
+        card_mod:
+          style:
+            .: |
+              ha-card ha-markdown {
+                padding:0px
+              }
+              ha-card ha-markdown.no-header {
+                padding:0px
+              }
+            ha-markdown:
+              $:
+                ha-markdown-element: |
+                  div {
+                      background-color:rgb(90, 90, 90);
+                      padding: 12px 12px;
+                      color:white;
+                      font-weight:normal;
+                      font-size:1.2em;
+                      border-top-left-radius: 5px; 
+                      border-top-right-radius: 5px; 
+                  }
+                  table{
+                    border-collapse: collapse;
+                    font-size: 0.9em;
+                    font-family: Roboto;
+                    width: 100%;
+                    outline: 0px solid #393c3d;
+                    margin-top:5px;
+                  } caption {
+                      text-align: center;
+                      font-weight: bold;
+                      font-size: 1.2em;
+                  } td {
+                      padding: 5px 10px 5px 10px;
+                      text-align: left;
+                      border-bottom: 0px solid #1c2020;
+                  }
+                  tr {
+                      border-bottom: 0px solid #1c2020;
+                  }
+
+                  tr:nth-of-type(even) {
+                      background-color: rgb(54, 54, 54, 0.3);
+                  }
+                  tr:last-of-type {
+                      border-bottom: transparent;          }*
+                  mark {
+                      background: #F0FFF0;
+                      color: #222627;
+                      border-radius: 5px;
+                      padding: 5px;
+                  }
+                  span {
+                      background: #EC4B34;
+                      color: #222627;
+                      border-radius: 5px;
+                      padding: 5px;
+                  }
+                  span {
+                      padding: 5px;
+                  }
+                  tr:nth-child(n+2) > td:nth-child(2) {
+                    text-align: left;
+                  }
 
       - type: markdown
         content: |-
