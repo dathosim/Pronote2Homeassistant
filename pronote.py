@@ -160,7 +160,7 @@ if client.logged_in:
             'reasons':(f'{absence.reasons}'),
             
     })
-    #Récupération  des acquisitions pour l'année
+    #Récupération  des acquisitions + évaluations pour l'année
     all_acquisitions = [period.evaluations for period in client.periods]
     
     #Transformation des acquisitions en Json
@@ -188,9 +188,27 @@ if client.logged_in:
                      'paliers': evaluation.paliers,
                      'date': evaluation.date.strftime("%A %d %b %Y"),
 
-                     
-
     })
+    
+    information = client.information_and_surveys(only_unread=False)
+    jsondata['info'] = []
+    for info in information:
+        for content in info.content:
+            jsondata['info'].append({
+                
+                'id': info.id,
+                'title': info.title,
+                'auteur': info.author,
+                'lu': info.read,
+                'creation_date': info.creation_date.strftime("%Y/%m/%d"),
+                'start_date': info.start_date.strftime("%Y/%m/%d"),
+                'end_date': info.end_date.strftime("%Y/%m/%d"),
+                'category': info.category,
+                'anonymous_response': info.anonymous_response,
+                'sondage': info.survey,
+                '_raw_content': info._raw_content,
+     
+                })
 
     #Stockage dans un fichier json : edt + notes + devoirs 
     location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
