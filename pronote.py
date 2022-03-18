@@ -1,25 +1,59 @@
+from ast import If
 import pronotepy
+from pronotepy.ent import ac_lyon
+from pronotepy.ent import ac_grenoble
+from pronotepy.ent import ac_orleans_tours
+from pronotepy.ent import ac_reims
+from pronotepy.ent import ac_reunion
+from pronotepy.ent import atrium_sud
+from pronotepy.ent import ile_de_france
+from pronotepy.ent import monbureaunumerique
+from pronotepy.ent import occitanie_montpellier
+from pronotepy.ent import paris_classe_numerique
+
 import os
+import sys
 from datetime import date
 from datetime import timedelta 
 import json
 
-#Variables a remplacer (ou laisser comme ça pour tester la démo
+#Variables a remplacer (ou laisser comme ça pour tester la démo)
 eleve="demo" #nom de votre enfant - ne sert que pour le nom du fichier json
 prefix_url = "demo" # sert au prefix de l'url https://PREFIX.index-education.net/pronote/
 username="demonstration" #utlisateur pronote  - a remplacer par le nom d'utilisateur pronote de l'élève
 password="pronotevs" # mot de passe pronote - a remplacer par le mot de passe du compte de l'élève
+ent = None #A initialiser si connexion via ENT - avec le nom technique de l'ENT - exemple : ent=paris_classe_numerique
 
-index_note=0 
+#Autres de configuration
+index_note=0 #debut de la boucle des notes
 limit_note=11 #nombre max de note à afficher + 1 
 longmax_devoir = 125 #nombre de caractère max dans la description des devoirs
 
-#Connection à Pronote 
-client = pronotepy.Client('https://'+prefix_url+'.index-education.net/pronote/eleve.html?login=true', username, password)
+#Connection à Pronote avec ou sans ENT
+if ent:
+    try:
+        client = pronotepy.Client('https://'+prefix_url+'.index-education.net/pronote/eleve.html', username, password, ent)
+    except:
+        print("Erreur de connexion via l'ENT - vérifier les paramètres")
+else:
+    try:
+        client = pronotepy.Client('https://'+prefix_url+'.index-education.net/pronote/eleve.html?login=true', username, password)
+    except:
+        print("Erreur de connexion via l'ENT - vérifier les paramètres")
 
 #Si on est bien connecté
 if client.logged_in:
     
+    #Récupération du nom, de la classe et de l'établissement et stockage dans le json
+    jsondata = {}
+    jsondata['identite'] = []
+    jsondata['identite'].append({
+        'nom_complet': client.info.name,   
+        'classe': client.info.class_name,
+        'etablissement': client.info.establishment,
+    })
+
+
     #Récupération  emploi du temps du jour
     lessons_today = client.lessons(date.today())
     lessons_today = sorted(lessons_today, key=lambda lesson: lesson.start)
@@ -37,7 +71,6 @@ if client.logged_in:
     lessons_nextday = sorted(lessons_nextday, key=lambda lesson: lesson.start)
 
     #Transformation Json des emplois du temps (J,J+1 et next)
-    jsondata = {}
     jsondata['edt_aujourdhui'] = []
     for lesson in lessons_today:
         jsondata['edt_aujourdhui'].append({
@@ -122,13 +155,12 @@ if client.logged_in:
     })
 
 
-
     #Stockage dans un fichier json : edt + notes + devoirs 
     location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
     with open(os.path.join(location, "../www/pronote_"+eleve+".json"), "a") as outfile:
         outfile.truncate(0)
         json.dump(jsondata, outfile, indent=4)
 
-
+    #debug
+    #print(json.dumps(jsondata, indent=4))
     
- 
