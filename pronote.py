@@ -172,13 +172,22 @@ if client.logged_in:
                 jsondata['acquisitions_all'].append({
             
 
-                     'id':(f'{acquisition.id}'),
-                     'pillar':(f'{acquisition.pillar}'),
-                     'domain':(f'{acquisition.domain}'),
-                     'order':(f'{acquisition.order}'),
-                     'level':(f'{acquisition.level}'),
-                     'abbreviation':(f'{acquisition.abbreviation}'),
-                     'coefficient':(f'{acquisition.coefficient}'),
+                     'id':acquisition.id,
+                     'pillar':acquisition.pillar,
+                     'domain':acquisition.domain,
+                     'order':acquisition.order,
+                     'level':acquisition.level,
+                     'abbreviation':acquisition.abbreviation,
+                     'coefficient':acquisition.coefficient,
+                     'name': evaluation.name,
+                     'domain': evaluation.domain,
+                     'teacher': evaluation.teacher,
+                     'coefficient': evaluation.coefficient,
+                     'description': evaluation.description,
+                     'subject': evaluation.subject.name,
+                     'paliers': evaluation.paliers,
+                     'date': evaluation.date.strftime("%A %d %b %Y"),
+
                      
 
     })
