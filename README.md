@@ -1,13 +1,14 @@
 # Pronote dans Homeassistant
 Ceci est un tutoriel pour intégrer Pronote dans Home assistant !
+C'est une intégration mais qui n'est pas plug and play comme les inétégrations standard de HA.
+Elle se base sur un script python que j'ai développé et qui est basé sur l'API wrapper [pronotepy](https://github.com/bain3/pronotepy) 
  
 ![Lovelace](screen-pronote1.png?raw=true "Screen Shot")
 
-# Nouveautés - 27/03/2022
-
+### Nouveautés - 27/03/2022
 - Connexion via les ENT (si celle-ci est développée dans la lib pronotepy 
 - Ajout des absences : dans le script et dans le lovelace 
-<img src="screen-absence.png?raw=true" alt="absence" width="200"/>
+<img src="screen-absence.png?raw=true" alt="absence" width="300"/>
 
 # Rappel : 
 Pronote est une application en ligne déployée dans plusieurs milliers de collèges et lycées français. 
