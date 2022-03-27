@@ -3,7 +3,14 @@ Ceci est un tutoriel pour intégrer Pronote dans Home assistant !
  
 ![Lovelace](screen-pronote1.png?raw=true "Screen Shot")
 
-Rappel : Pronote est une application en ligne déployée dans plusieurs milliers de collèges et lycées français. 
+# Nouveautés - 27/03/2022
+
+- Connexion via les ENT (si celle-ci est développée dans la lib pronotepy 
+- Ajout des absences : dans le script et dans le lovelace 
+<img src="screen-absence.png?raw=true" alt="absence" width="200"/>
+
+# Rappel : 
+Pronote est une application en ligne déployée dans plusieurs milliers de collèges et lycées français. 
 Elle permet aux élèves de voir leurs emploi du temps, leurs notes et leurs devoirs. 
 Vous pouvez voir une démo de l'application à l'adresse suivante : 
 https://demo.index-education.net/pronote/eleve.html?login=true 
@@ -35,7 +42,7 @@ Ce script quand il est lancé génère un fichier pronote_AAAA.json qu'il dépos
 NB : AAAA est le nom de l'élève à paramétré dans le script 
 
 Il doit ensuite être lancé de façon régulière - toute les 5 ou 10 minutes - via la crontab par exemple
-Exemple : */10 * * * * /usr/bin/python3 /usr/share/hassio/homeassistant/python_scripts/pronote_demo.py > /tmp/pronote_demo.log 2>&1
+Exemple : */10 * * * * /usr/bin/python3 /usr/share/hassio/homeassistant/python_scripts/pronote.py > /tmp/pronote.log 2>&1
 
 ## 2. Configuration YAML pour récupérer l'emploi du temps dans un sensor
 
