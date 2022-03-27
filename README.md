@@ -7,9 +7,10 @@ Elle se base sur un script python que j'ai développé et qui est basé sur l'AP
 
 ### Nouveautés - 27/03/2022
 - Connexion via les ENT (si celle-ci est développée dans la lib pronotepy 
+- Ajoute de la gestion des compte parent (plus uniquement les comptes elèves dont on n'a pas toujours le mot de passe) 
 - Ajout des absences : dans le script et dans le lovelace 
 <img src="screen-absence.png?raw=true" alt="absence" width="300"/>
-- Ajoute de la gestion des compte parent (plus uniquement les comptes elèves dont on n'a pas toujours le mot de passe) 
+
 
 # Rappel : 
 Pronote est une application en ligne déployée dans plusieurs milliers de collèges et lycées français.  
