@@ -18,11 +18,14 @@ from datetime import timedelta
 import json
 
 #Variables a remplacer (ou laisser comme ça pour tester la démo)
-eleve="demo" #nom de votre enfant - ne sert que pour le nom du fichier json
+eleve_id="demo" #prénom de votre enfant par exemple - ne sert que pour le nom du fichier json - pas d'espace - pas d'accent !! 
+eleve_nom_prenom = "PARENT Fanny" #NOM Prénom de votre enfant - sert quand on se connecte avec un compte parent qui a plusieurs enfants !
 prefix_url = "demo" # sert au prefix de l'url https://PREFIX.index-education.net/pronote/
-username="demonstration" #utlisateur pronote  - a remplacer par le nom d'utilisateur pronote de l'élève
-password="pronotevs" # mot de passe pronote - a remplacer par le mot de passe du compte de l'élève
+type_compte = "eleve" #eleve ou parent - si vous utlisez un compte parent ou eleve pour vous connecter 
+username="demonstration" #utlisateur pronote  - a remplacer par le nom d'utilisateur pronote de l'élève ou du parent si type_compte=parent
+password="pronotevs" # mot de passe pronote - a remplacer par le mot de passe du compte de l'élève ou du parent si type_compte=parent
 ent = None #A initialiser si connexion via ENT - avec le nom technique de l'ENT - exemple : ent=paris_classe_numerique
+
 
 #Autres de configuration
 index_note=0 #debut de la boucle des notes
@@ -32,19 +35,33 @@ longmax_devoir = 125 #nombre de caractère max dans la description des devoirs
 
 #Connection à Pronote avec ou sans ENT
 if ent:
-    try:
-        client = pronotepy.Client('https://'+prefix_url+'.index-education.net/pronote/eleve.html', username, password, ent)
-    except:
-        print("Erreur de connexion via l'ENT - vérifier les paramètres")
+    if type_compte == "parent":
+        try:
+            client = pronotepy.ParentClient('https://'+prefix_url+'.index-education.net/pronote/parent.html', username, password, ent)
+        except:
+            print("Erreur de connexion via l'ENT avec le compte parent - vérifier les paramètres")
+    else:
+        try:
+            client = pronotepy.Client('https://'+prefix_url+'.index-education.net/pronote/eleve.html', username, password, ent)
+        except:
+            print("Erreur de connexion via l'ENT avec le compte eleve - vérifier les paramètres")
 else:
-    try:
-        client = pronotepy.Client('https://'+prefix_url+'.index-education.net/pronote/eleve.html?login=true', username, password)
-    except:
-        print("Erreur de connexion via l'ENT - vérifier les paramètres")
+    if type_compte == "parent":
+        try:
+            client = pronotepy.ParentClient('https://'+prefix_url+'.index-education.net/pronote/parent.html?login=true', username, password)
+        except:
+            print("Erreur de connexion à Pronote (sans ENT) avec le compte parent - vérifier les paramètres")
+    else:
+        try:
+            client = pronotepy.Client('https://'+prefix_url+'.index-education.net/pronote/eleve.html?login=true', username, password)
+        except:
+            print("Erreur de connexion à Pronote (sans ENT) avec le compte élève - vérifier les paramètres")
 
 #Si on est bien connecté
 if client.logged_in:
-    
+    if type_compte == "parent":
+        client.set_child(eleve_nom_prenom)
+
     #Récupération du nom, de la classe et de l'établissement et stockage dans le json
     jsondata = {}
     jsondata['identite'] = []
@@ -53,7 +70,6 @@ if client.logged_in:
         'classe': client.info.class_name,
         'etablissement': client.info.establishment,
     })
-
 
     #Récupération  emploi du temps du jour
     lessons_today = client.lessons(date.today())
@@ -92,6 +108,7 @@ if client.logged_in:
                 'status': lesson.status,
                 'background_color': lesson.background_color,
     })
+
     jsondata['edt_demain'] = []
     for lesson in lessons_tomorrow:
         index=lessons_tomorrow.index(lesson)
@@ -206,11 +223,10 @@ if client.logged_in:
                 'nb_jours': absence.days,
                 'raison': str(absence.reasons)[2:-2],        
             })
-    print(json.dumps(jsondata['absence'], indent=4))
 
     #Stockage dans un fichier json : edt + notes + devoirs 
     location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    with open(os.path.join(location, "../www/pronote_"+eleve+".json"), "a") as outfile:
+    with open(os.path.join(location, "../www/pronote_"+eleve_id+".json"), "a") as outfile:
         outfile.truncate(0)
         json.dump(jsondata, outfile, indent=4)
 
