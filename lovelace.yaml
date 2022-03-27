@@ -454,3 +454,98 @@
                   tr:nth-child(n+2) > td:nth-child(2) {
                     text-align: left;
                   }
+      - type: markdown
+        content: |-
+          <div>Absences</div>
+          <table width="100%">
+              <tbody width="100%">
+                  {%-for attr in states.sensor.pronote_absence_demo.attributes.absence -%}<tr>
+                      <td>{{state_attr('sensor.pronote_absence_demo', 'absence')[loop.index-1]['date_debut_format']}}
+                          <br>{{state_attr('sensor.pronote_absence_demo', 'absence')[loop.index-1]['nb_heures']}} de cours manqué(s)
+                      </td>
+                      <td>
+                      {%- if state_attr('sensor.pronote_absence_demo', 'absence')[loop.index-1]['raison'] == '' -%}
+                          Motif : inconnu<br/>
+                      {%- else -%}
+                          Motif : {{state_attr('sensor.pronote_absence_demo', 'absence')[loop.index-1]['raison']}}<br/>
+                      {% endif %}
+                      {%- if state_attr('sensor.pronote_absence_demo', 'absence')[loop.index-1]['justifie'] == false -%}
+                          <span>Absence non justifiée</span>
+                      {%- else -%}
+                          <mark>Absence justifiée</mark>
+                      {% endif %}</td>               
+                  </tr>
+                  {% endfor %}
+            </tbody>
+          </table>
+        card_mod:
+          style:
+            .: |
+              ha-card ha-markdown {
+                padding:0px
+              }
+              ha-card ha-markdown.no-header {
+                padding:0px
+              }
+            ha-markdown:
+              $:
+                ha-markdown-element: |
+                  h1 {
+                      font-weight: normal;
+                      font-size: 24px;
+                  }
+                  div {
+                      background-color:rgb(100, 100, 100);
+                      padding: 12px 12px;
+                      color:white;
+                      font-weight:normal;
+                      font-size:1.2em;
+                      border-top-left-radius: 5px; 
+                      border-top-right-radius: 5px; 
+                  }
+                  table{
+                    border-collapse: collapse;
+                    font-size: 0.9em;
+                    font-family: Roboto;
+                    width: 100%;
+                    outline: 0px solid #393c3d;
+                    margin-top: 0px;
+                  } caption {
+                      text-align: center;
+                      font-weight: bold;
+                      font-size: 1.2em;
+                  } td {
+                      padding: 5px 5px 5px 5px;
+                      text-align: left;
+                      border-bottom: 0px solid #1c2020;
+                  }
+                  tr {
+                      border-bottom: 0px solid #1c2020;
+                  }
+
+                  tr:nth-of-type(even) {
+                      background-color: rgb(54, 54, 54, 0.3);
+                  }
+                  tr:last-of-type {
+                      border-bottom: transparent;
+                  }
+                  mark {
+                      background: #009767;
+                      color: #222627;
+                      border-radius: 10px;
+                      padding: 5px;
+                  }
+                  span {
+                      background: #EC4B34;
+                      color: #222627;
+                      border-radius: 10px;
+                      padding: 5px;
+                  }
+                  span {
+                      padding: 5px;
+                  }
+                  tr:nth-child(n+2) > td:nth-child(2) {
+                    text-align: left;
+                  }
+
+

@@ -29,6 +29,7 @@ index_note=0 #debut de la boucle des notes
 limit_note=11 #nombre max de note à afficher + 1 
 longmax_devoir = 125 #nombre de caractère max dans la description des devoirs
 
+
 #Connection à Pronote avec ou sans ENT
 if ent:
     try:
@@ -70,49 +71,78 @@ if client.logged_in:
         delta = delta + 1 
     lessons_nextday = sorted(lessons_nextday, key=lambda lesson: lesson.start)
 
+    #Récupération  emploi d'un jour spécifique pour des tests
+    lessons_specific = client.lessons(date(2022, 2, 14))
+    lessons_specific = sorted(lessons_specific, key=lambda lesson: lesson.start)
+
     #Transformation Json des emplois du temps (J,J+1 et next)
     jsondata['edt_aujourdhui'] = []
     for lesson in lessons_today:
-        jsondata['edt_aujourdhui'].append({
-            'id': lesson.id,
-            'date_heure': lesson.start.strftime("%d/%m/%Y, %H:%M"),
-            'date': lesson.start.strftime("%d/%m/%Y"),
-            'heure': lesson.start.strftime("%H:%M"),
-            'heure_fin': lesson.end.strftime("%H:%M"),
-            'cours': lesson.subject.name,
-            'salle': lesson.classroom,
-            'annulation': lesson.canceled,
-            'status': lesson.status,
-            'background_color': lesson.background_color,
+        index=lessons_today.index(lesson)
+        if not (lesson.start == lessons_today[index-1].start and lesson.canceled == True) :        
+            jsondata['edt_aujourdhui'].append({
+                'id': lesson.id,
+                'date_heure': lesson.start.strftime("%d/%m/%Y, %H:%M"),
+                'date': lesson.start.strftime("%d/%m/%Y"),
+                'heure': lesson.start.strftime("%H:%M"),
+                'heure_fin': lesson.end.strftime("%H:%M"),
+                'cours': lesson.subject.name,
+                'salle': lesson.classroom,
+                'annulation': lesson.canceled,
+                'status': lesson.status,
+                'background_color': lesson.background_color,
     })
     jsondata['edt_demain'] = []
     for lesson in lessons_tomorrow:
-        jsondata['edt_demain'].append({
-            'id': lesson.id,            
-            'date_heure': lesson.start.strftime("%d/%m/%Y, %H:%M"),
-            'date': lesson.start.strftime("%d/%m/%Y"),
-            'heure': lesson.start.strftime("%H:%M"),
-            'heure_fin': lesson.end.strftime("%H:%M"),            
-            'cours': lesson.subject.name,
-            'salle': lesson.classroom,
-            'annulation': lesson.canceled,
-            'status': lesson.status,
-            'background_color': lesson.background_color,
+        index=lessons_tomorrow.index(lesson)
+        if not (lesson.start == lessons_tomorrow[index-1].start and lesson.canceled == True) :
+            jsondata['edt_demain'].append({
+                'id': lesson.id,            
+                'date_heure': lesson.start.strftime("%d/%m/%Y, %H:%M"),
+                'date': lesson.start.strftime("%d/%m/%Y"),
+                'heure': lesson.start.strftime("%H:%M"),
+                'heure_fin': lesson.end.strftime("%H:%M"),            
+                'cours': lesson.subject.name,
+                'salle': lesson.classroom,
+                'annulation': lesson.canceled,
+                'status': lesson.status,
+                'background_color': lesson.background_color,
     })
 
     jsondata['edt_prochainjour'] = []
     for lesson in lessons_nextday:
-        jsondata['edt_prochainjour'].append({
-            'id': lesson.id,            
-            'date_heure': lesson.start.strftime("%d/%m/%Y, %H:%M"),
-            'date': lesson.start.strftime("%d/%m/%Y"),
-            'heure': lesson.start.strftime("%H:%M"),
-            'heure_fin': lesson.end.strftime("%H:%M"),            
-            'cours': lesson.subject.name,
-            'salle': lesson.classroom,
-            'annulation': lesson.canceled,
-            'status': lesson.status,
-            'background_color': lesson.background_color,
+        index=lessons_nextday.index(lesson)
+        if not (lesson.start == lessons_nextday[index-1].start and lesson.canceled == True) :
+            jsondata['edt_prochainjour'].append({
+                'index': index,            
+                'id': lesson.id,            
+                'date_heure': lesson.start.strftime("%d/%m/%Y, %H:%M"),
+                'date': lesson.start.strftime("%d/%m/%Y"),
+                'heure': lesson.start.strftime("%H:%M"),
+                'heure_fin': lesson.end.strftime("%H:%M"),            
+                'cours': lesson.subject.name,
+                'salle': lesson.classroom,
+                'annulation': lesson.canceled,
+                'status': lesson.status,
+                'background_color': lesson.background_color,
+    })
+
+    jsondata['edt_date'] = []
+    for lesson in lessons_specific:
+        index=lessons_specific.index(lesson)
+        if not (lesson.start == lessons_specific[index-1].start and lesson.canceled == True) :
+            jsondata['edt_date'].append({
+                'index': index,            
+                'id': lesson.id,            
+                'date_heure': lesson.start.strftime("%d/%m/%Y, %H:%M"),
+                'date': lesson.start.strftime("%d/%m/%Y"),
+                'heure': lesson.start.strftime("%H:%M"),
+                'heure_fin': lesson.end.strftime("%H:%M"),            
+                'cours': lesson.subject.name,
+                'salle': lesson.classroom,
+                'annulation': lesson.canceled,
+                'status': lesson.status,
+                'background_color': lesson.background_color,
     })
 
     #Récupération des notes 
@@ -147,6 +177,7 @@ if client.logged_in:
     #Transformation des devoirs  en Json   
     for homework in homework_today:
         jsondata['devoir'].append({
+            'index': homework_today.index(homework),
             'date': homework.date.strftime("%d/%m"),
             'title': homework.subject.name,
             'description': (homework.description)[0:longmax_devoir],
@@ -154,6 +185,28 @@ if client.logged_in:
             'done' : homework.done,            
     })
 
+    #Récupération  des absences pour l'année
+    #absences = [period.absences for period in client.periods]
+    #Récupération  des absences pour la période en cours 
+    absences = client.current_period.absences()
+    absences = sorted(absences, key=lambda absence: absence.from_date, reverse=True)
+
+    #Transformation des absences en Json
+    jsondata['absence'] = []
+    #for period in absences:
+    #    for absence in period():
+    for absence in absences:    
+            jsondata['absence'].append({            
+                'id': absence.id,
+                'date_debut': absence.from_date.strftime("%d/%m/%y %H:%M"),
+                'date_debut_format': absence.from_date.strftime("Le %d %b à %H:%M"),
+                'date_fin': absence.to_date.strftime("%d/%m/%y %H:%M"),
+                'justifie': absence.justified,
+                'nb_heures': absence.hours,
+                'nb_jours': absence.days,
+                'raison': str(absence.reasons)[2:-2],        
+            })
+    print(json.dumps(jsondata['absence'], indent=4))
 
     #Stockage dans un fichier json : edt + notes + devoirs 
     location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
@@ -161,6 +214,4 @@ if client.logged_in:
         outfile.truncate(0)
         json.dump(jsondata, outfile, indent=4)
 
-    #debug
-    #print(json.dumps(jsondata, indent=4))
     
