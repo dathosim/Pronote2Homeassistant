@@ -70,6 +70,7 @@ if client.logged_in:
         'classe': client.info.class_name,
         'etablissement': client.info.establishment,
     })
+#    print(json.dumps(jsondata['identite'], indent=4))
 
     #Récupération  emploi du temps du jour
     lessons_today = client.lessons(date.today())
@@ -143,6 +144,7 @@ if client.logged_in:
                 'status': lesson.status,
                 'background_color': lesson.background_color,
     })
+    #print(json.dumps(jsondata['edt_prochainjour'], indent=4))
 
     jsondata['edt_date'] = []
     for lesson in lessons_specific:
@@ -224,10 +226,45 @@ if client.logged_in:
                 'raison': str(absence.reasons)[2:-2],        
             })
 
+#    print(json.dumps(jsondata['absence'], indent=4))
+
+
+    #Récupération des evaluations
+    evaluations = client.current_period.evaluations
+    evaluations = sorted(evaluations, key=lambda evaluation: (evaluation.subject.name, evaluation.date))
+
+
+    #Transformation des evaluations en Json
+    jsondata['evaluation'] = []
+    for evaluation in evaluations:
+        jsondata['evaluation'].append({
+            'date': evaluation.date.strftime("%d/%m/%Y"),
+            'date_courte': evaluation.date.strftime("%d/%m"),            
+            'eval': evaluation.subject.name,
+            'desc': evaluation.description,            
+            'coeff': evaluation.coefficient,
+            'palier': evaluation.paliers,
+            'prof': evaluation.teacher,
+        })
+        jsondata['acquisition'] = []
+        for acquisition in evaluation.acquisitions:
+            jsondata['acquisition'].append({
+                'acquisition_ordre': acquisition.order,
+                'acquisition': acquisition.name,
+                'acquisition_niveau': acquisition.abbreviation,
+                'acquisition_niveau_info': acquisition.level,
+                'acquisition_domaine': acquisition.domain,
+            })      
+        jsondata['evaluation'].append(jsondata['acquisition'])        
+
+    
+    print(json.dumps(jsondata['evaluation'], indent=4))
+
+
+
     #Stockage dans un fichier json : edt + notes + devoirs 
     location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
     with open(os.path.join(location, "../www/pronote_"+eleve_id+".json"), "a") as outfile:
         outfile.truncate(0)
         json.dump(jsondata, outfile, indent=4)
-
     
