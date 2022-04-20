@@ -12,7 +12,20 @@ sensor:
             Pas cours
         {% endif %}
     resource: http://192.168.XX.XX:8123/local/pronote_demo.json
-    
+
+  - platform: rest
+    name: pronote_edt_demo_aujourdhui_debut_cours
+    scan_interval: 10
+    json_attributes:
+      - edt_aujourdhui_debut
+    value_template: "OK"
+    resource: http://192.168.XX.XX:8123/local/pronote_demo.json
+  - platform: template
+    sensors:
+      pronote_edt_demo_aujourdhui_cours_0_heure:
+        value_template: "{{ state_attr('sensor.pronote_edt_demo_aujourdhui_debut_cours', 'edt_aujourdhui_debut') }}"
+        friendly_name: "Démo / Heure début cours"
+
   - platform: rest
     name: pronote_edt_demo_demain
     scan_interval: 10
@@ -25,7 +38,20 @@ sensor:
             Pas cours demain
         {% endif %}
     resource: http://192.168.XX.XX:8123/local/pronote_demo.json
-    
+
+  - platform: rest
+    name: pronote_edt_demo_demain_debut_cours
+    scan_interval: 10
+    json_attributes:
+      - edt_demain_debut
+    value_template: "OK"
+    resource: http://192.168.XX.XX:8123/local/pronote_demo.json
+  - platform: template
+    sensors:
+      pronote_edt_demo_demain_cours_0_heure:
+        value_template: "{{ state_attr('sensor.pronote_edt_demo_demain_debut_cours', 'edt_demain_debut') }}"
+        friendly_name: "Démo / Heure début cours demain"
+
   - platform: rest
     name: pronote_edt_demo_prochainjour
     scan_interval: 10
@@ -38,8 +64,22 @@ sensor:
             None
         {% endif %}
     resource: http://192.168.XX.XX:8123/local/pronote_demo.json
-    
-        
+
+
+  - platform: rest
+    name: pronote_edt_demo_prochainjour_debut_cours
+    scan_interval: 10
+    json_attributes:
+      - edt_prochainjour_debut
+    value_template: "OK"
+    resource: http://192.168.XX.XX:8123/local/pronote_demo.json
+  - platform: template
+    sensors:
+      pronote_edt_demo_prochainjour_cours_0_heure:
+        value_template: "{{ state_attr('sensor.pronote_edt_demo_prochainjour_debut_cours', 'edt_prochainjour_debut') }}"
+        friendly_name: "Démo / Heure début cours J+1"
+
+
   - platform: rest
     name: pronote_note_demo
     scan_interval: 10
