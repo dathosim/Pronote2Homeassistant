@@ -40,9 +40,7 @@
               ha-card ha-markdown.no-header {
                 padding:0px
               }
-            ha-markdown:
-              $:
-                ha-markdown-element: |
+            ha-markdown$: |
                   div {
                       background-color:rgb(100, 100, 100);
                       padding: 12px 12px;
@@ -130,9 +128,7 @@
               ha-card ha-markdown.no-header {
                 padding:0px
               }
-            ha-markdown:
-              $:
-                ha-markdown-element: |
+            ha-markdown$: |
                   div {
                       background-color:rgb(100, 100, 100);
                       padding: 12px 12px;
@@ -223,9 +219,7 @@
               ha-card ha-markdown.no-header {
                 padding:0px
               }
-            ha-markdown:
-              $:
-                ha-markdown-element: |
+            ha-markdown$: |
                   div {
                       background-color:rgb(100, 100, 100);
                       padding: 12px 12px;
@@ -302,9 +296,7 @@
               ha-card ha-markdown.no-header {
                 padding:0px
               }
-            ha-markdown:
-              $:
-                ha-markdown-element: |
+            ha-markdown$: |
                   h1 {
                       font-weight: normal;
                       font-size: 24px;
@@ -394,9 +386,7 @@
               ha-card ha-markdown.no-header {
                 padding:0px
               }
-            ha-markdown:
-              $:
-                ha-markdown-element: |
+            ha-markdown$: |
                   h1 {
                       font-weight: normal;
                       font-size: 24px;
@@ -487,9 +477,7 @@
               ha-card ha-markdown.no-header {
                 padding:0px
               }
-            ha-markdown:
-              $:
-                ha-markdown-element: |
+            ha-markdown$: |
                   h1 {
                       font-weight: normal;
                       font-size: 24px;
