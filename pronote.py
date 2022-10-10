@@ -239,7 +239,7 @@ if client.logged_in:
     #Récupération  des absences pour l'année
     #absences = [period.absences for period in client.periods]
     #Récupération  des absences pour la période en cours 
-    absences = client.current_period.absences()
+    absences = client.current_period.absences
     absences = sorted(absences, key=lambda absence: absence.from_date, reverse=True)
 
 
