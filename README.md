@@ -42,10 +42,10 @@ L'idée consiste donc à remonter ces informations (emploi du temps, note, devoi
 
 Je mets donc à disposition un script python [pronote.py](pronote.py).  
 Ce script permet de se connecter à Pronote et récupère toutes les informations dans un JSON.  
-Il est initialisé avec le compte de demo de Pronote > reste à l'adapter à vos identifiants en changeant les variables au début du script.   
-Il faut donc installer ce script dans un dossier (nommé par exemple "python_script") dans le dossier /config de votre HA.  
+Ce script utilise un fichier de configuration [config.ini] qui est initialisé avec le compte de demo de Pronote > reste à l'adapter à vos identifiants en changeant les variables dans la section defaut.   
+Il faut donc installer ce script ainsi que le fichier de configuration dans un dossier (nommé par exemple "python_script") dans le dossier /config de votre HA.  
 Ce script quand il est lancé génère un fichier pronote_AAAA.json qu'il dépose dans /config/www/ de votre HA.  
-NB : AAAA est le nom de l'élève à paramétré dans le script.  
+NB : AAAA est le nom de l'élève à paramétré dans le fichier de configuration.  
 Il doit ensuite être lancé de façon régulière - toute les 5 ou 10 minutes - via la crontab par exemple.  
 Exemple : */10 * * * * /usr/bin/python3 /usr/share/hassio/homeassistant/python_scripts/pronote.py > /tmp/pronote.log 2>&1  
 

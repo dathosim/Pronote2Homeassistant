@@ -17,22 +17,47 @@ import sys
 from datetime import date
 from datetime import timedelta 
 import json
+import configparser
 
-#Variables a remplacer (ou laisser comme ça pour tester la démo)
-eleve_id="demo" #prénom de votre enfant par exemple - ne sert que pour le nom du fichier json - pas d'espace - pas d'accent !! 
-eleve_nom_prenom = "PARENT Fanny" #NOM Prénom de votre enfant - sert quand on se connecte avec un compte parent qui a plusieurs enfants !
-prefix_url = "demo" # sert au prefix de l'url https://PREFIX.index-education.net/pronote/
-type_compte = "eleve" #eleve ou parent - si vous utlisez un compte parent ou eleve pour vous connecter 
-username="demonstration" #utlisateur pronote  - a remplacer par le nom d'utilisateur pronote de l'élève ou du parent si type_compte=parent
-password="pronotevs" # mot de passe pronote - a remplacer par le mot de passe du compte de l'élève ou du parent si type_compte=parent
-ent = None #A initialiser si connexion via ENT - avec le nom technique de l'ENT - exemple : ent=paris_classe_numerique
+config = configparser.ConfigParser()
+config.read("config.ini")
+
+section="defaut"
+eleve_id = config.get(section, "eleve_id")
+eleve_nom_prenom = config.get(section, "eleve_nom_prenom")
+prefix_url = config.get(section, "prefix_url")
+type_compte = config.get(section, "type_compte")
+username = config.get(section, "username")
+password = config.get(section, "password")
+ent = config.get(section, "ent")
+
+if ent == "ac_lyon":
+        ent = ac_lyon
+elif ent == "ac_grenoble":
+        ent = ac_grenoble
+elif ent == "ac_orleans_tours":
+        ent = ac_orleans_tours
+elif ent == "ac_reims":
+        ent = ac_reims
+elif ent == "ac_reunion":
+        ent = ac_reunion
+elif ent == "atrium_sud":
+        ent = atrium_sud
+elif ent == "ile_de_france":
+        ent = ile_de_france
+elif ent == "monbureaunumerique":
+        ent = monbureaunumerique
+elif ent == "occitanie_montpellier":
+        ent = occitanie_montpellier
+elif ent == "paris_classe_numerique":
+        ent = paris_classe_numerique
+else:
+        ent = None
 
 #Autres de configuration
 index_note=0 #debut de la boucle des notes
 limit_note=11 #nombre max de note à afficher + 1 
 longmax_devoir = 125 #nombre de caractère max dans la description des devoirs
-
-
 
 #Connection à Pronote avec ou sans ENT
 if ent:
@@ -239,7 +264,7 @@ if client.logged_in:
     #Récupération  des absences pour l'année
     #absences = [period.absences for period in client.periods]
     #Récupération  des absences pour la période en cours 
-    absences = client.current_period.absences()
+    absences = client.current_period.absences
     absences = sorted(absences, key=lambda absence: absence.from_date, reverse=True)
 
 
@@ -292,13 +317,13 @@ if client.logged_in:
         jsondata['evaluation'].append(jsondata['acquisition'])        
 
     
-    print(json.dumps(jsondata['evaluation'], indent=4))
+    #print(json.dumps(jsondata['evaluation'], indent=4))
 
 
 
     #Stockage dans un fichier json : edt + notes + devoirs 
     location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-    with open(os.path.join(location, "../www/pronote_"+eleve_id+".json"), "a") as outfile:
+    with open(os.path.join(location, ".\pronote_"+eleve_id+".json"), "a") as outfile:
         outfile.truncate(0)
         json.dump(jsondata, outfile, indent=4)
     
