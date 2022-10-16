@@ -21,8 +21,11 @@ import configparser
 
 config = configparser.ConfigParser()
 config.read("config.ini")
-
 section="defaut"
+if len(sys.argv) > 1:
+    section = sys.argv[1]
+
+
 eleve_id = config.get(section, "eleve_id")
 eleve_nom_prenom = config.get(section, "eleve_nom_prenom")
 prefix_url = config.get(section, "prefix_url")
@@ -58,6 +61,8 @@ else:
 index_note=0 #debut de la boucle des notes
 limit_note=11 #nombre max de note à afficher + 1 
 longmax_devoir = 125 #nombre de caractère max dans la description des devoirs
+
+
 
 #Connection à Pronote avec ou sans ENT
 if ent:
@@ -323,6 +328,7 @@ if client.logged_in:
 
     #Stockage dans un fichier json : edt + notes + devoirs 
     location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
+
     with open(os.path.join(location, "../www/pronote_"+eleve_id+".json"), "a") as outfile:
         outfile.truncate(0)
         json.dump(jsondata, outfile, indent=4)
