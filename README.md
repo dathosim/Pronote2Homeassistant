@@ -6,7 +6,7 @@ Elle se base sur un script python que j'ai développé et qui est basé sur l'AP
 ![Lovelace](screen-pronote1.png?raw=true "Screen Shot")
 
 ### Nouveautés - 16/10/2022
-- configuration dans un fichier de [config.ini] qui permet de configurer plusieurs comptes pour plusieurs enfants
+- Externalisation de la configuration dans un fichier de [config.ini] qui permet de configurer plusieurs comptes pour plusieurs enfants - merci à [https://github.com/pelrol](pelrol)
 
 ### Nouveautés - 27/03/2022
 - Connexion via les ENT (si celle-ci est développée dans la lib pronotepy 
@@ -64,7 +64,7 @@ Il doit ensuite être lancé de façon régulière - toute les 5 ou 10 minutes -
 Exemple : 
     */10 * * * * /usr/bin/python3 /usr/share/hassio/homeassistant/python_scripts/pronote.py > /tmp/pronote.log 2>&1  
 
-## 2. Configuration YAML pour récupérer l'emploi du temps dans un sensor
+## 3. Configuration YAML pour récupérer l'emploi du temps dans un sensor
 
 Je fourni donc un fichier configuration.yaml [configuration.yaml](configuration.yaml)  à copier à l'intérieur de celui de votre HA.
 
@@ -73,7 +73,7 @@ Attention : N'oubliez pas de mettre la bonne adresse IP interne de votre HA (ne 
 Et renommer pour changer "demo" avec le nom qu vous voulez (votre enfant)
 
 
-## 3. Test des sensors avec le Developper Tools de HA
+## 4. Test des sensors avec le Developper Tools de HA
 
 Tester les sensors qui commencent par "pronote" avec  le Developer Tools de Home assistant
 
@@ -81,7 +81,7 @@ Tester les sensors qui commencent par "pronote" avec  le Developer Tools de Home
 
 
 
-## 3. Affichage dans les cartes Lovelace
+## 5. Affichage dans les cartes Lovelace
 
 Il suffit de créer un nouvel onglet dans HA et ensuite de copier coller le contenu du fichier lovelace.yaml [lovelace.yaml](lovelace.yaml) 
 
@@ -89,7 +89,7 @@ Il suffit de créer un nouvel onglet dans HA et ensuite de copier coller le cont
 
 ![Lovelace](screen-pronote2.png?raw=true "Screen Shot avec début des cours")
 
-## 4. Notification
+## 6. Notification
 
 Vous trouverez dans le fichier automation.yaml des automatisations qui permettent d'être notifié (notif persistant pour l'exemple) en cas de : 
 
