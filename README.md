@@ -6,7 +6,7 @@ Elle se base sur un script python que j'ai développé et qui est basé sur l'AP
 ![Lovelace](screen-pronote1.png?raw=true "Screen Shot")
 
 ### Nouveautés - 16/10/2022
-- Externalisation de la configuration dans un fichier de [config.ini] qui permet de configurer plusieurs comptes pour plusieurs enfants - merci à [https://github.com/pelrol](pelrol)
+- Externalisation de la configuration dans un fichier de [config.ini] qui permet de configurer plusieurs comptes pour plusieurs enfants - merci à [pelrol](https://github.com/pelrol)
 
 ### Nouveautés - 27/03/2022
 - Connexion via les ENT (si celle-ci est développée dans la lib pronotepy 
