@@ -19,8 +19,10 @@ from datetime import timedelta
 import json
 import configparser
 
+location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 config = configparser.ConfigParser()
-config.read("config.ini")
+config.read(location+"/config.ini")
+
 section="defaut"
 if len(sys.argv) > 1:
     section = sys.argv[1]
@@ -269,7 +271,7 @@ if client.logged_in:
     #Récupération  des absences pour l'année
     #absences = [period.absences for period in client.periods]
     #Récupération  des absences pour la période en cours 
-    absences = client.current_period.absences
+    absences = client.current_period.absences()
     absences = sorted(absences, key=lambda absence: absence.from_date, reverse=True)
 
 
@@ -327,8 +329,6 @@ if client.logged_in:
 
 
     #Stockage dans un fichier json : edt + notes + devoirs 
-    location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
-
     with open(os.path.join(location, "../www/pronote_"+eleve_id+".json"), "a") as outfile:
         outfile.truncate(0)
         json.dump(jsondata, outfile, indent=4)
