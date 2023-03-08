@@ -299,7 +299,10 @@ if client.logged_in:
 
 
     #Récupération des evaluations
-    evaluations = client.current_period.evaluations
+    try:
+        evaluations = client.current_period.evaluations
+    except:
+        evaluations = [] 
     evaluations = sorted(evaluations, key=lambda evaluation: (evaluation.subject.name, evaluation.date))
 
 
