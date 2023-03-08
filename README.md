@@ -47,7 +47,10 @@ Le script python que j'ai développé dépend d'une librairie python développé
 (merci à [bain3](https://github.com/bain3).
 C'est cette librairie qui permet par exemple que le script se connecter à Pronote via les ENT (s'ils ont été implémenté et suportés par bain3)
 
-Pour installer cette librairie sur votre systeme, je vous conseille d'utiliser la commande pip ou pip3.
+Pour installer cette librairie sur votre systeme, je vous conseille d'utiliser la commande pip ou pip3.  
+Commande : pip install pronotepy  
+Recommandation : il est important de la mettre à jour régulièrement cette librairie.  
+Commande : pip install --upgrade pronotepy  
 
 ## 2. Installation du script python 
 
@@ -74,11 +77,9 @@ Exemple :
 
 ## 4. Configuration YAML pour récupérer l'emploi du temps dans un sensor
 
-Je fourni donc un fichier configuration.yaml [configuration.yaml](configuration.yaml)  à copier à l'intérieur de celui de votre HA.
-
-Attention : N'oubliez pas de mettre la bonne adresse IP interne de votre HA (ne pas laisser 192.168.XX.XX)
-
-Et renommer pour changer "demo" avec le nom qu vous voulez (votre enfant)
+Je fourni donc un fichier configuration.yaml [configuration.yaml](configuration.yaml)  à copier à l'intérieur de celui de votre HA.  
+Attention : N'oubliez pas de mettre la bonne adresse IP interne de votre HA (ne pas laisser 192.168.XX.XX). 
+Et renommer pour changer "demo" avec le nom qu vous voulez (votre enfant).  
 
 
 ## 5. Test des sensors avec le Developper Tools de HA
