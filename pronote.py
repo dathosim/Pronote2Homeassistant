@@ -11,6 +11,7 @@ from pronotepy.ent import ile_de_france
 from pronotepy.ent import monbureaunumerique
 from pronotepy.ent import occitanie_montpellier
 from pronotepy.ent import paris_classe_numerique
+from pronotepy.ent import cas_agora06
 
 import os
 import sys
@@ -56,6 +57,8 @@ elif ent == "occitanie_montpellier":
         ent = occitanie_montpellier
 elif ent == "paris_classe_numerique":
         ent = paris_classe_numerique
+elif ent == "cas_agora06":
+        ent = cas_agora06
 else:
         ent = None
 
@@ -271,7 +274,7 @@ if client.logged_in:
     #Récupération  des absences pour l'année
     #absences = [period.absences for period in client.periods]
     #Récupération  des absences pour la période en cours 
-    absences = client.current_period.absences()
+    absences = client.current_period.absences
     absences = sorted(absences, key=lambda absence: absence.from_date, reverse=True)
 
 
