@@ -9,8 +9,8 @@ Elle se base sur un script python que j'ai développé et qui est basé sur l'AP
 - Externalisation de la configuration dans un fichier de [config.ini] qui permet de configurer plusieurs comptes pour plusieurs enfants - merci à [pelrol](https://github.com/pelrol)
 
 ### Nouveautés - 27/03/2022
-- Connexion via les ENT (si celle-ci est développée dans la lib pronotepy 
-- Ajoute de la gestion des compte parent (plus uniquement les comptes elèves dont on n'a pas toujours le mot de passe) 
+- Connexion via les ENT (si celle-ci est développée dans la lib pronotepy)
+- Ajout de la gestion des comptes "parents" de PRONOTE pour se connecter (plus uniquement les comptes elèves dont on n'a pas toujours le mot de passe) 
 - Ajout des absences : dans le script et dans le lovelace 
 <img src="screen-absence.png?raw=true" alt="absence" width="300"/>
 
@@ -41,7 +41,15 @@ L'idée consiste donc à remonter ces informations (emploi du temps, note, devoi
 - Plusieurs sensor REST dans la configuration de HA qui se connectent en local au fichier JSON récupéré 
 - Des Card Markdown dans Lovelace pour afficher les données 
 
-## 1. Installation du script python 
+## 1. Installation de la lib pronotepy 
+
+Le script python que j'ai développé dépend d'une librairie python développé en open source : [pronotepy](https://github.com/bain3/pronotepy)
+(merci à [bain3](https://github.com/bain3).
+C'est cette librairie qui permet par exemple que le script se connecter à Pronote via les ENT (s'ils ont été implémenté et suportés par bain3)
+
+Pour installer cette librairie sur votre systeme, je vous conseille d'utiliser la commande pip ou pip3.
+
+## 2. Installation du script python 
 
 Je mets donc à disposition un script python [pronote.py](pronote.py).  
 Ce script permet de se connecter à Pronote et récupère toutes les informations dans un JSON.  
@@ -51,7 +59,7 @@ Il faut donc installer ce script ainsi que le fichier de configuration dans un d
 Ce script quand il est lancé génère un fichier pronote_AAAA.json qu'il dépose dans /config/www/ de votre HA.
 NB : AAAA est le nom de l'élève à paramétré dans le fichier de configuration.
 
-## 2. Exécution du script 
+## 3. Exécution du script 
 
 Pour lancer le script il faut avoir accès en SSH et se placer dans le dossier créé précédement
     cd /usr/share/hassio/homeassistant/python_scripts/
@@ -64,7 +72,7 @@ Il doit ensuite être lancé de façon régulière - toute les 5 ou 10 minutes -
 Exemple : 
     */10 * * * * /usr/bin/python3 /usr/share/hassio/homeassistant/python_scripts/pronote.py > /tmp/pronote.log 2>&1  
 
-## 3. Configuration YAML pour récupérer l'emploi du temps dans un sensor
+## 4. Configuration YAML pour récupérer l'emploi du temps dans un sensor
 
 Je fourni donc un fichier configuration.yaml [configuration.yaml](configuration.yaml)  à copier à l'intérieur de celui de votre HA.
 
@@ -73,7 +81,7 @@ Attention : N'oubliez pas de mettre la bonne adresse IP interne de votre HA (ne 
 Et renommer pour changer "demo" avec le nom qu vous voulez (votre enfant)
 
 
-## 4. Test des sensors avec le Developper Tools de HA
+## 5. Test des sensors avec le Developper Tools de HA
 
 Tester les sensors qui commencent par "pronote" avec  le Developer Tools de Home assistant
 
@@ -81,7 +89,7 @@ Tester les sensors qui commencent par "pronote" avec  le Developer Tools de Home
 
 
 
-## 5. Affichage dans les cartes Lovelace
+## 6. Affichage dans les cartes Lovelace
 
 Il suffit de créer un nouvel onglet dans HA et ensuite de copier coller le contenu du fichier lovelace.yaml [lovelace.yaml](lovelace.yaml) 
 
@@ -89,7 +97,7 @@ Il suffit de créer un nouvel onglet dans HA et ensuite de copier coller le cont
 
 ![Lovelace](screen-pronote2.png?raw=true "Screen Shot avec début des cours")
 
-## 6. Notification
+## 7. Notification
 
 Vous trouverez dans le fichier automation.yaml des automatisations qui permettent d'être notifié (notif persistant pour l'exemple) en cas de : 
 
