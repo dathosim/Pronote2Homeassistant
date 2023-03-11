@@ -11,6 +11,7 @@ from pronotepy.ent import ile_de_france
 from pronotepy.ent import monbureaunumerique
 from pronotepy.ent import occitanie_montpellier
 from pronotepy.ent import paris_classe_numerique
+from pronotepy.ent import cas_agora06
 
 import os
 import sys
@@ -56,6 +57,8 @@ elif ent == "occitanie_montpellier":
         ent = occitanie_montpellier
 elif ent == "paris_classe_numerique":
         ent = paris_classe_numerique
+elif ent == "cas_agora06":
+        ent = cas_agora06
 else:
         ent = None
 
@@ -176,7 +179,7 @@ if client.logged_in:
                 'background_color': lesson.background_color,
             })
         if lesson.canceled == False and jsondata['edt_demain_debut'] == '' :
-            jsondata['edt_demain_debut'] = lesson.start.strftime("%H:%M")
+            jsondata['edt_demain_debut'] = lesson.start.strftime("%H:%M")            
 
     jsondata['edt_prochainjour'] = []
     jsondata['edt_prochainjour_debut'] = ""
@@ -249,8 +252,8 @@ if client.logged_in:
             'moyenne_classe': grade.average,           
             'max': grade.max,
             'min': grade.min,
-        }
-    )
+
+    })
 
     #Récupération des devoirs
     homework_today = client.homework(date.today())
@@ -271,7 +274,7 @@ if client.logged_in:
     #Récupération  des absences pour l'année
     #absences = [period.absences for period in client.periods]
     #Récupération  des absences pour la période en cours 
-    absences = client.current_period.absences()
+    absences = client.current_period.absences
     absences = sorted(absences, key=lambda absence: absence.from_date, reverse=True)
 
 
@@ -296,8 +299,11 @@ if client.logged_in:
 
 
     #Récupération des evaluations
-    evaluations = client.current_period.evaluations
-    evaluations = sorted(evaluations, key=lambda evaluation: (evaluation.date), reverse=True)
+    try:
+        evaluations = client.current_period.evaluations
+    except:
+        evaluations = [] 
+    evaluations = sorted(evaluations, key=lambda evaluation: (evaluation.subject.name, evaluation.date))
 
 
     #Transformation des evaluations en Json
@@ -311,18 +317,18 @@ if client.logged_in:
             'coeff': evaluation.coefficient,
             'palier': evaluation.paliers,
             'prof': evaluation.teacher,
-            'acquisitions': [
-                {
-                    'acquisition_ordre': acquisition.order,
-                    'acquisition': acquisition.name,
-                    'acquisition_niveau': acquisition.abbreviation,
-                    'acquisition_niveau_info': acquisition.level,
-                    'acquisition_domaine': acquisition.domain,
-                }
-                for acquisition in evaluation.acquisitions
-            ]
         })
-    
+        jsondata['acquisition'] = []
+        for acquisition in evaluation.acquisitions:
+            jsondata['acquisition'].append({
+                'acquisition_ordre': acquisition.order,
+                'acquisition': acquisition.name,
+                'acquisition_niveau': acquisition.abbreviation,
+                'acquisition_niveau_info': acquisition.level,
+                'acquisition_domaine': acquisition.domain,
+            })      
+        jsondata['evaluation'].append(jsondata['acquisition'])        
+
     
     #print(json.dumps(jsondata['evaluation'], indent=4))
 
