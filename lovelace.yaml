@@ -1,10 +1,9 @@
       - type: entities
         entities:
-          - sensor.pronote_edt_demo_aujourdhui_cours_0_heure
-          - sensor.pronote_edt_demo_demain_cours_0_heure
-          - sensor.pronote_edt_demo_prochainjour_cours_0_heure
+          - entity: sensor.pronote_edt_demo_aujourdhui_debut
+          - entity: sensor.pronote_edt_demo_demain_debut
+          - entity: sensor.pronote_edt_demo_prochainjour_debut
         title: Début des cours
-
       - type: markdown
         content: |-
           <div>Emploi du temps d'aujourd'hui </div>
@@ -41,58 +40,58 @@
                 padding:0px
               }
             ha-markdown$: |
-                  div {
-                      background-color:rgb(100, 100, 100);
-                      padding: 12px 12px;
-                      color:white;
-                      font-weight:normal;
-                      font-size:1.2em;
-                      border-top-left-radius: 5px; 
-                      border-top-right-radius: 5px; 
-                  }
-                  table{
-                    border-collapse: collapse;
-                    font-size: 0.9em;
-                    font-family: Roboto;
-                    width: 100%;
-                    outline: 0px solid #393c3d;
-                    margin-top:5px;
-                  } caption {
-                      text-align: center;
-                      font-weight: bold;
-                      font-size: 1.2em;
-                  } td {
-                      padding: 5px 10px 5px 10px;
-                      text-align: left;
-                      border-bottom: 0px solid #1c2020;
-                  }
-                  tr {
-                      border-bottom: 0px solid #1c2020;
-                  }
+              div {
+                  background-color:rgb(100, 100, 100);
+                  padding: 12px 12px;
+                  color:white;
+                  font-weight:normal;
+                  font-size:1.2em;
+                  border-top-left-radius: 5px; 
+                  border-top-right-radius: 5px; 
+              }
+              table{
+                border-collapse: collapse;
+                font-size: 0.9em;
+                font-family: Roboto;
+                width: 100%;
+                outline: 0px solid #393c3d;
+                margin-top:5px;
+              } caption {
+                  text-align: center;
+                  font-weight: bold;
+                  font-size: 1.2em;
+              } td {
+                  padding: 5px 10px 5px 10px;
+                  text-align: left;
+                  border-bottom: 0px solid #1c2020;
+              }
+              tr {
+                  border-bottom: 0px solid #1c2020;
+              }
 
-                  tr:nth-of-type(even) {
-                      background-color: rgb(54, 54, 54, 0.3);
-                  }
-                  tr:last-of-type {
-                      border-bottom: transparent;          }*
-                  mark {
-                      background: #009767;
-                      color: #222627;
-                      border-radius: 5px;
-                      padding: 5px;
-                  }
-                  span {
-                      background: #EC4B34;
-                      color: #222627;
-                      border-radius: 5px;
-                      padding: 5px;
-                  }
-                  span {
-                      padding: 5px;
-                  }
-                  tr:nth-child(n+2) > td:nth-child(2) {
-                    text-align: left;
-                  }
+              tr:nth-of-type(even) {
+                  background-color: rgb(54, 54, 54, 0.3);
+              }
+              tr:last-of-type {
+                  border-bottom: transparent;          }*
+              mark {
+                  background: #009767;
+                  color: #222627;
+                  border-radius: 5px;
+                  padding: 5px;
+              }
+              span {
+                  background: #EC4B34;
+                  color: #222627;
+                  border-radius: 5px;
+                  padding: 5px;
+              }
+              span {
+                  padding: 5px;
+              }
+              tr:nth-child(n+2) > td:nth-child(2) {
+                text-align: left;
+              }
       - type: markdown
         content: |-
           <div>Emploi du temps de demain</div>
@@ -129,58 +128,58 @@
                 padding:0px
               }
             ha-markdown$: |
-                  div {
-                      background-color:rgb(100, 100, 100);
-                      padding: 12px 12px;
-                      color:white;
-                      font-weight:normal;
-                      font-size:1.2em;
-                      border-top-left-radius: 5px; 
-                      border-top-right-radius: 5px; 
-                  }
-                  table{
-                    border-collapse: collapse;
-                    font-size: 0.9em;
-                    font-family: Roboto;
-                    width: 100%;
-                    outline: 0px solid #393c3d;
-                    margin-top:5px;
-                  } caption {
-                      text-align: center;
-                      font-weight: bold;
-                      font-size: 1.2em;
-                  } td {
-                      padding: 5px 10px 5px 10px;
-                      text-align: left;
-                      border-bottom: 0px solid #1c2020;
-                  }
-                  tr {
-                      border-bottom: 0px solid #1c2020;
-                  }
+              div {
+                  background-color:rgb(100, 100, 100);
+                  padding: 12px 12px;
+                  color:white;
+                  font-weight:normal;
+                  font-size:1.2em;
+                  border-top-left-radius: 5px; 
+                  border-top-right-radius: 5px; 
+              }
+              table{
+                border-collapse: collapse;
+                font-size: 0.9em;
+                font-family: Roboto;
+                width: 100%;
+                outline: 0px solid #393c3d;
+                margin-top:5px;
+              } caption {
+                  text-align: center;
+                  font-weight: bold;
+                  font-size: 1.2em;
+              } td {
+                  padding: 5px 10px 5px 10px;
+                  text-align: left;
+                  border-bottom: 0px solid #1c2020;
+              }
+              tr {
+                  border-bottom: 0px solid #1c2020;
+              }
 
-                  tr:nth-of-type(even) {
-                      background-color: rgb(54, 54, 54, 0.3);
-                  }
-                  tr:last-of-type {
-                      border-bottom: transparent;          }*
-                  mark {
-                      background: #009767;
-                      color: #222627;
-                      border-radius: 5px;
-                      padding: 5px;
-                  }
-                  span {
-                      background: #EC4B34;
-                      color: #222627;
-                      border-radius: 5px;
-                      padding: 5px;
-                  }
-                  span {
-                      padding: 5px;
-                  }
-                  tr:nth-child(n+2) > td:nth-child(2) {
-                    text-align: left;
-                  }
+              tr:nth-of-type(even) {
+                  background-color: rgb(54, 54, 54, 0.3);
+              }
+              tr:last-of-type {
+                  border-bottom: transparent;          }*
+              mark {
+                  background: #009767;
+                  color: #222627;
+                  border-radius: 5px;
+                  padding: 5px;
+              }
+              span {
+                  background: #EC4B34;
+                  color: #222627;
+                  border-radius: 5px;
+                  padding: 5px;
+              }
+              span {
+                  padding: 5px;
+              }
+              tr:nth-child(n+2) > td:nth-child(2) {
+                text-align: left;
+              }
       - type: markdown
         content: >-
           <div>Emploi du temps du :
@@ -220,58 +219,58 @@
                 padding:0px
               }
             ha-markdown$: |
-                  div {
-                      background-color:rgb(100, 100, 100);
-                      padding: 12px 12px;
-                      color:white;
-                      font-weight:normal;
-                      font-size:1.2em;
-                      border-top-left-radius: 5px; 
-                      border-top-right-radius: 5px; 
-                  }
-                  table{
-                    border-collapse: collapse;
-                    font-size: 0.9em;
-                    font-family: Roboto;
-                    width: 100%;
-                    outline: 0px solid #393c3d;
-                    margin-top:5px;
-                  } caption {
-                      text-align: center;
-                      font-weight: bold;
-                      font-size: 1.2em;
-                  } td {
-                      padding: 5px 10px 5px 10px;
-                      text-align: left;
-                      border-bottom: 0px solid #1c2020;
-                  }
-                  tr {
-                      border-bottom: 0px solid #1c2020;
-                  }
+              div {
+                  background-color:rgb(100, 100, 100);
+                  padding: 12px 12px;
+                  color:white;
+                  font-weight:normal;
+                  font-size:1.2em;
+                  border-top-left-radius: 5px; 
+                  border-top-right-radius: 5px; 
+              }
+              table{
+                border-collapse: collapse;
+                font-size: 0.9em;
+                font-family: Roboto;
+                width: 100%;
+                outline: 0px solid #393c3d;
+                margin-top:5px;
+              } caption {
+                  text-align: center;
+                  font-weight: bold;
+                  font-size: 1.2em;
+              } td {
+                  padding: 5px 10px 5px 10px;
+                  text-align: left;
+                  border-bottom: 0px solid #1c2020;
+              }
+              tr {
+                  border-bottom: 0px solid #1c2020;
+              }
 
-                  tr:nth-of-type(even) {
-                      background-color: rgb(54, 54, 54, 0.3);
-                  }
-                  tr:last-of-type {
-                      border-bottom: transparent;          }*
-                  mark {
-                      background: #009767;
-                      color: #222627;
-                      border-radius: 5px;
-                      padding: 5px;
-                  }
-                  span {
-                      background: #EC4B34;
-                      color: #222627;
-                      border-radius: 5px;
-                      padding: 5px;
-                  }
-                  span {
-                      padding: 5px;
-                  }
-                  tr:nth-child(n+2) > td:nth-child(2) {
-                    text-align: left;
-                  }
+              tr:nth-of-type(even) {
+                  background-color: rgb(54, 54, 54, 0.3);
+              }
+              tr:last-of-type {
+                  border-bottom: transparent;          }*
+              mark {
+                  background: #009767;
+                  color: #222627;
+                  border-radius: 5px;
+                  padding: 5px;
+              }
+              span {
+                  background: #EC4B34;
+                  color: #222627;
+                  border-radius: 5px;
+                  padding: 5px;
+              }
+              span {
+                  padding: 5px;
+              }
+              tr:nth-child(n+2) > td:nth-child(2) {
+                text-align: left;
+              }
       - type: markdown
         content: |-
           <div>Notes</div>
@@ -297,63 +296,63 @@
                 padding:0px
               }
             ha-markdown$: |
-                  h1 {
-                      font-weight: normal;
-                      font-size: 24px;
-                  }
-                  div {
-                      background-color:rgb(100, 100, 100);
-                      padding: 12px 12px;
-                      color:white;
-                      font-weight:normal;
-                      font-size:1.2em;
-                      border-top-left-radius: 5px; 
-                      border-top-right-radius: 5px; 
-                  }
-                  table{
-                    border-collapse: collapse;
-                    font-size: 0.9em;
-                    font-family: Roboto;
-                    width: auto;
-                    outline: 0px solid #393c3d;
-                    margin-top: 10px;
-                  } caption {
-                      text-align: center;
-                      font-weight: bold;
-                      font-size: 1.2em;
-                  } td {
-                      padding: 5px 5px 5px 5px;
-                      text-align: left;
-                      border-bottom: 0px solid #1c2020;
-                  }
-                  tr {
-                      border-bottom: 0px solid #1c2020;
-                  }
+              h1 {
+                  font-weight: normal;
+                  font-size: 24px;
+              }
+              div {
+                  background-color:rgb(100, 100, 100);
+                  padding: 12px 12px;
+                  color:white;
+                  font-weight:normal;
+                  font-size:1.2em;
+                  border-top-left-radius: 5px; 
+                  border-top-right-radius: 5px; 
+              }
+              table{
+                border-collapse: collapse;
+                font-size: 0.9em;
+                font-family: Roboto;
+                width: auto;
+                outline: 0px solid #393c3d;
+                margin-top: 10px;
+              } caption {
+                  text-align: center;
+                  font-weight: bold;
+                  font-size: 1.2em;
+              } td {
+                  padding: 5px 5px 5px 5px;
+                  text-align: left;
+                  border-bottom: 0px solid #1c2020;
+              }
+              tr {
+                  border-bottom: 0px solid #1c2020;
+              }
 
-                  tr:nth-of-type(even) {
-                      background-color: rgb(54, 54, 54, 0.3);
-                  }
-                  tr:last-of-type {
-                      border-bottom: transparent;
-                  }
-                  mark {
-                      background: #009767;
-                      color: #222627;
-                      border-radius: 10px;
-                      padding: 5px;
-                  }
-                  span {
-                      background: #EC4B34;
-                      color: #222627;
-                      border-radius: 10px;
-                      padding: 5px;
-                  }
-                  span {
-                      padding: 5px;
-                  }
-                  tr:nth-child(n+2) > td:nth-child(2) {
-                    text-align: left;
-                  }
+              tr:nth-of-type(even) {
+                  background-color: rgb(54, 54, 54, 0.3);
+              }
+              tr:last-of-type {
+                  border-bottom: transparent;
+              }
+              mark {
+                  background: #009767;
+                  color: #222627;
+                  border-radius: 10px;
+                  padding: 5px;
+              }
+              span {
+                  background: #EC4B34;
+                  color: #222627;
+                  border-radius: 10px;
+                  padding: 5px;
+              }
+              span {
+                  padding: 5px;
+              }
+              tr:nth-child(n+2) > td:nth-child(2) {
+                text-align: left;
+              }
       - type: markdown
         content: |-
           <div>Devoirs</div>
@@ -387,63 +386,63 @@
                 padding:0px
               }
             ha-markdown$: |
-                  h1 {
-                      font-weight: normal;
-                      font-size: 24px;
-                  }
-                  div {
-                      background-color:rgb(100, 100, 100);
-                      padding: 12px 12px;
-                      color:white;
-                      font-weight:normal;
-                      font-size:1.2em;
-                        border-top-left-radius: 5px; 
-                        border-top-right-radius: 5px; 
-                  }
-                  table{
-                    border-collapse: collapse;
-                    font-size: 0.9em;
-                    font-family: Roboto;
-                    width: auto;
-                    outline: 0px solid #393c3d;
-                    margin-top: 10px;
-                  } caption {
-                      text-align: center;
-                      font-weight: bold;
-                      font-size: 1.2em;
-                  } td {
-                      padding: 5px 5px 5px 5px;
-                      text-align: left;
-                      border-bottom: 0px solid #1c2020;
-                  }
-                  tr {
-                      border-bottom: 0px solid #1c2020;
-                  }
+              h1 {
+                  font-weight: normal;
+                  font-size: 24px;
+              }
+              div {
+                  background-color:rgb(100, 100, 100);
+                  padding: 12px 12px;
+                  color:white;
+                  font-weight:normal;
+                  font-size:1.2em;
+                    border-top-left-radius: 5px; 
+                    border-top-right-radius: 5px; 
+              }
+              table{
+                border-collapse: collapse;
+                font-size: 0.9em;
+                font-family: Roboto;
+                width: auto;
+                outline: 0px solid #393c3d;
+                margin-top: 10px;
+              } caption {
+                  text-align: center;
+                  font-weight: bold;
+                  font-size: 1.2em;
+              } td {
+                  padding: 5px 5px 5px 5px;
+                  text-align: left;
+                  border-bottom: 0px solid #1c2020;
+              }
+              tr {
+                  border-bottom: 0px solid #1c2020;
+              }
 
-                  tr:nth-of-type(even) {
-                      background-color: rgb(54, 54, 54, 0.3);
-                  }
-                  tr:last-of-type {
-                      border-bottom: transparent;
-                  }
-                  mark {
-                      background: #009767;
-                      color: #222627;
-                      border-radius: 5px;
-                      padding: 5px;
-                  }
-                  span {
-                      background: #EC4B34;
-                      color: #222627;
-                      border-radius: 5px;
-                      padding: 5px;
-                  }
-                  span {
-                      padding: 5px;
-                  }
-                  tr:nth-child(n+2) > td:nth-child(2) {
-                    text-align: left;
-                  }
+              tr:nth-of-type(even) {
+                  background-color: rgb(54, 54, 54, 0.3);
+              }
+              tr:last-of-type {
+                  border-bottom: transparent;
+              }
+              mark {
+                  background: #009767;
+                  color: #222627;
+                  border-radius: 5px;
+                  padding: 5px;
+              }
+              span {
+                  background: #EC4B34;
+                  color: #222627;
+                  border-radius: 5px;
+                  padding: 5px;
+              }
+              span {
+                  padding: 5px;
+              }
+              tr:nth-child(n+2) > td:nth-child(2) {
+                text-align: left;
+              }
       - type: markdown
         content: |-
           <div>Absences</div>
@@ -478,63 +477,63 @@
                 padding:0px
               }
             ha-markdown$: |
-                  h1 {
-                      font-weight: normal;
-                      font-size: 24px;
-                  }
-                  div {
-                      background-color:rgb(100, 100, 100);
-                      padding: 12px 12px;
-                      color:white;
-                      font-weight:normal;
-                      font-size:1.2em;
-                      border-top-left-radius: 5px; 
-                      border-top-right-radius: 5px; 
-                  }
-                  table{
-                    border-collapse: collapse;
-                    font-size: 0.9em;
-                    font-family: Roboto;
-                    width: 100%;
-                    outline: 0px solid #393c3d;
-                    margin-top: 0px;
-                  } caption {
-                      text-align: center;
-                      font-weight: bold;
-                      font-size: 1.2em;
-                  } td {
-                      padding: 5px 5px 5px 5px;
-                      text-align: left;
-                      border-bottom: 0px solid #1c2020;
-                  }
-                  tr {
-                      border-bottom: 0px solid #1c2020;
-                  }
+              h1 {
+                  font-weight: normal;
+                  font-size: 24px;
+              }
+              div {
+                  background-color:rgb(100, 100, 100);
+                  padding: 12px 12px;
+                  color:white;
+                  font-weight:normal;
+                  font-size:1.2em;
+                  border-top-left-radius: 5px; 
+                  border-top-right-radius: 5px; 
+              }
+              table{
+                border-collapse: collapse;
+                font-size: 0.9em;
+                font-family: Roboto;
+                width: 100%;
+                outline: 0px solid #393c3d;
+                margin-top: 0px;
+              } caption {
+                  text-align: center;
+                  font-weight: bold;
+                  font-size: 1.2em;
+              } td {
+                  padding: 5px 5px 5px 5px;
+                  text-align: left;
+                  border-bottom: 0px solid #1c2020;
+              }
+              tr {
+                  border-bottom: 0px solid #1c2020;
+              }
 
-                  tr:nth-of-type(even) {
-                      background-color: rgb(54, 54, 54, 0.3);
-                  }
-                  tr:last-of-type {
-                      border-bottom: transparent;
-                  }
-                  mark {
-                      background: #009767;
-                      color: #222627;
-                      border-radius: 10px;
-                      padding: 5px;
-                  }
-                  span {
-                      background: #EC4B34;
-                      color: #222627;
-                      border-radius: 10px;
-                      padding: 5px;
-                  }
-                  span {
-                      padding: 5px;
-                  }
-                  tr:nth-child(n+2) > td:nth-child(2) {
-                    text-align: left;
-                  }
+              tr:nth-of-type(even) {
+                  background-color: rgb(54, 54, 54, 0.3);
+              }
+              tr:last-of-type {
+                  border-bottom: transparent;
+              }
+              mark {
+                  background: #009767;
+                  color: #222627;
+                  border-radius: 10px;
+                  padding: 5px;
+              }
+              span {
+                  background: #EC4B34;
+                  color: #222627;
+                  border-radius: 10px;
+                  padding: 5px;
+              }
+              span {
+                  padding: 5px;
+              }
+              tr:nth-child(n+2) > td:nth-child(2) {
+                text-align: left;
+              }
       - type: markdown
         content: |-
           <div>Evaluations</div>
@@ -620,4 +619,3 @@
               tr:nth-child(n+2) > td:nth-child(2) {
                 text-align: left;
               }
-
