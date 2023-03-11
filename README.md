@@ -9,10 +9,14 @@ Elle se base sur un script python que j'ai développé et qui est basé sur l'AP
 - Externalisation de la configuration dans un fichier de [config.ini] qui permet de configurer plusieurs comptes pour plusieurs enfants - merci à [pelrol](https://github.com/pelrol)
 
 ### Nouveautés - 27/03/2022
-- Connexion via les ENT (si celle-ci est développée dans la lib pronotepy)
+- Connexion via les ENT (si celle-ci est développée dans la lib pronotepy)  
 - Ajout de la gestion des comptes "parents" de PRONOTE pour se connecter (plus uniquement les comptes elèves dont on n'a pas toujours le mot de passe) 
 - Ajout des absences : dans le script et dans le lovelace 
 <img src="screen-absence.png?raw=true" alt="absence" width="300"/>
+
+### Nouveautés - 11/03/2023
+- Ajout des évaluations - notes sous formes de lettre ou de couleurs
+<img src="screen-evaluation.png?raw=true" alt="evaluation" width="300"/>
 
 
 # Rappel : 
