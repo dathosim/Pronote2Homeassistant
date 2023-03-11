@@ -100,7 +100,7 @@ Il suffit de créer un nouvel onglet dans HA et ensuite de copier coller le cont
 
 ça doit donner ça : 
 
-![Lovelace](screen-pronote2.png?raw=true "Screen Shot avec début des cours")
+![Lovelace](screen-pronote3.png?raw=true "Screen Shot avec début des cours + eval")
 
 ## 7. Notification
 
