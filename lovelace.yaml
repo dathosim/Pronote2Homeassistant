@@ -545,7 +545,7 @@
             <td width='10%'>{{attr['date_courte']}}</td>
             <td width='70%'>{{attr['eval']}}</td>
             <td width='20%'>
-            {%for attr2 in attr.acquisitions-%}{% if attr2['acquisition_niveau'] == "A+"  %} 🟢+ {% elif attr2['acquisition_niveau'] == "A"  %} 🟢 {% elif attr2['acquisition_niveau'] == "B+"  %} 🟡+ {% elif attr2['acquisition_niveau'] == "B"  %} 🟡 {% elif attr2['acquisition_niveau'] == "C+"  %} 🟠+ {% elif attr2['acquisition_niveau'] == "C"  %} 🟠 {% elif attr2['acquisition_niveau'] == "D+"  %} 🔴+ {% elif attr2['acquisition_niveau'] == "D"  %} 🔴 {% else %}{{ attr2['acquisition_niveau']}}  {% endif %}
+            {%for attr2 in attr.acquisitions-%}{% if attr2['acquisition_niveau'] == "A+"  %} 🟢+ {% elif attr2['acquisition_niveau'] == "A"  %} 🟢 {% elif attr2['acquisition_niveau'] == "B+"  %} 🟡+ {% elif attr2['acquisition_niveau'] == "B"  %} 🟡 {% elif attr2['acquisition_niveau'] == "C+"  %} 🟠+ {% elif attr2['acquisition_niveau'] == "C"  %} 🟠 {% elif attr2['acquisition_niveau'] == "D+"  %} 🔴+ {% elif attr2['acquisition_niveau'] == "D"  %} 🔴 {% elif attr2['acquisition_niveau'] == "E"  %} ⚪️ {% else %}{{ attr2['acquisition_niveau']}}  {% endif %}
             {% endfor %}
             </td>
             </tr>
