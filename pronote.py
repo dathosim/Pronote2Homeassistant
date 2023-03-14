@@ -1,17 +1,7 @@
 from ast import If
+import importlib
 import pronotepy
 from pronotepy.dataClasses import Lesson
-from pronotepy.ent import ac_lyon
-from pronotepy.ent import ac_grenoble
-from pronotepy.ent import ac_orleans_tours
-from pronotepy.ent import ac_reims
-from pronotepy.ent import ac_reunion
-from pronotepy.ent import atrium_sud
-from pronotepy.ent import ile_de_france
-from pronotepy.ent import monbureaunumerique
-from pronotepy.ent import occitanie_montpellier
-from pronotepy.ent import paris_classe_numerique
-from pronotepy.ent import cas_agora06
 
 import os
 import sys
@@ -23,6 +13,16 @@ import configparser
 location = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 config = configparser.ConfigParser()
 config.read(location+"/config.ini")
+
+def class_for_name(module_name, class_name):
+    try:
+        # load the module, will raise ImportError if module cannot be loaded
+        m = importlib.import_module(module_name)
+        # get the class, will raise AttributeError if class cannot be found
+        c = getattr(m, class_name)
+        return c
+    except:
+        return None
 
 section="defaut"
 if len(sys.argv) > 1:
@@ -37,30 +37,7 @@ username = config.get(section, "username")
 password = config.get(section, "password")
 ent = config.get(section, "ent")
 
-if ent == "ac_lyon":
-        ent = ac_lyon
-elif ent == "ac_grenoble":
-        ent = ac_grenoble
-elif ent == "ac_orleans_tours":
-        ent = ac_orleans_tours
-elif ent == "ac_reims":
-        ent = ac_reims
-elif ent == "ac_reunion":
-        ent = ac_reunion
-elif ent == "atrium_sud":
-        ent = atrium_sud
-elif ent == "ile_de_france":
-        ent = ile_de_france
-elif ent == "monbureaunumerique":
-        ent = monbureaunumerique
-elif ent == "occitanie_montpellier":
-        ent = occitanie_montpellier
-elif ent == "paris_classe_numerique":
-        ent = paris_classe_numerique
-elif ent == "cas_agora06":
-        ent = cas_agora06
-else:
-        ent = None
+ent = class_for_name('pronotepy.ent', ent)
 
 #Autres de configuration
 index_note=0 #debut de la boucle des notes
