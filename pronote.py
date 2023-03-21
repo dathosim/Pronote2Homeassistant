@@ -2,6 +2,7 @@ from ast import If
 import importlib
 import pronotepy
 from pronotepy.dataClasses import Lesson
+from pronotepy.ent import *
 
 import os
 import sys
@@ -31,7 +32,8 @@ if len(sys.argv) > 1:
 
 eleve_id = config.get(section, "eleve_id")
 eleve_nom_prenom = config.get(section, "eleve_nom_prenom")
-prefix_url = config.get(section, "prefix_url")
+#prefix_url = config.get(section, "prefix_url")
+pronote_url = config.get(section, "pronote_url")
 type_compte = config.get(section, "type_compte")
 username = config.get(section, "username")
 password = config.get(section, "password")
@@ -50,23 +52,23 @@ longmax_devoir = 125 #nombre de caractère max dans la description des devoirs
 if ent:
     if type_compte == "parent":
         try:
-            client = pronotepy.ParentClient('https://'+prefix_url+'.index-education.net/pronote/parent.html', username, password, ent)
+            client = pronotepy.ParentClient(pronote_url+'parent.html', username, password, ent)
         except:
             print("Erreur de connexion via l'ENT avec le compte parent - vérifier les paramètres")
     else:
         try:
-            client = pronotepy.Client('https://'+prefix_url+'.index-education.net/pronote/eleve.html', username, password, ent)
+            client = pronotepy.Client(pronote_url+'eleve.html', username, password, ent)
         except:
             print("Erreur de connexion via l'ENT avec le compte eleve - vérifier les paramètres")
 else:
     if type_compte == "parent":
         try:
-            client = pronotepy.ParentClient('https://'+prefix_url+'.index-education.net/pronote/parent.html?login=true', username, password)
+            client = pronotepy.ParentClient(pronote_url+'parent.html?login=true', username, password)
         except:
             print("Erreur de connexion à Pronote (sans ENT) avec le compte parent - vérifier les paramètres")
     else:
         try:
-            client = pronotepy.Client('https://'+prefix_url+'.index-education.net/pronote/eleve.html?login=true', username, password)
+            client = pronotepy.Client(pronote_url+'eleve.html?login=true', username, password)
         except:
             print("Erreur de connexion à Pronote (sans ENT) avec le compte élève - vérifier les paramètres")
 
