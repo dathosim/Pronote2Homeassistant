@@ -48,29 +48,17 @@ longmax_devoir = 125 #nombre de caractère max dans la description des devoirs
 
 
 
-#Connection à Pronote avec ou sans ENT
-if ent:
-    if type_compte == "parent":
-        try:
-            client = pronotepy.ParentClient(pronote_url+'parent.html', username, password, ent)
-        except:
-            print("Erreur de connexion via l'ENT avec le compte parent - vérifier les paramètres")
-    else:
-        try:
-            client = pronotepy.Client(pronote_url+'eleve.html', username, password, ent)
-        except:
-            print("Erreur de connexion via l'ENT avec le compte eleve - vérifier les paramètres")
-else:
-    if type_compte == "parent":
-        try:
-            client = pronotepy.ParentClient(pronote_url+'parent.html?login=true', username, password)
-        except:
-            print("Erreur de connexion à Pronote (sans ENT) avec le compte parent - vérifier les paramètres")
-    else:
-        try:
-            client = pronotepy.Client(pronote_url+'eleve.html?login=true', username, password)
-        except:
-            print("Erreur de connexion à Pronote (sans ENT) avec le compte élève - vérifier les paramètres")
+# Connection à Pronote avec ou sans ENT
+url = pronote_url + ('parent' if type_compte == 'parent' else 'eleve') + '.html'
+if not ent:
+    url += '?login=true'
+
+try:
+    client = (pronotepy.ParentClient if type_compte == 'parent' else pronotepy.Client)(url, username, password, ent)
+except:
+    message = "Erreur de connexion via l'ENT" if ent else "Erreur de connexion à Pronote (sans ENT)"
+    message += f" avec le compte {type_compte} - vérifier les paramètres"
+    print(message)
 
 #Si on est bien connecté
 if client.logged_in:
@@ -84,6 +72,7 @@ if client.logged_in:
         'nom_complet': client.info.name,   
         'classe': client.info.class_name,
         'etablissement': client.info.establishment,
+        'pronote_url': url
     })
 #    print(json.dumps(jsondata['identite'], indent=4))
 
