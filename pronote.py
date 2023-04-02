@@ -282,7 +282,8 @@ if client.logged_in:
         evaluations = client.current_period.evaluations
     except:
         evaluations = [] 
-    evaluations = sorted(evaluations, key=lambda evaluation: (evaluation.date), reverse=True)
+    evaluations = sorted(evaluations, key=lambda evaluation: (evaluation.name) )
+    evaluations = sorted(evaluations, key=lambda evaluation: (evaluation.date), reverse=True )
 
 
     #Transformation des evaluations en Json
