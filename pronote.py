@@ -25,7 +25,31 @@ def class_for_name(module_name, class_name):
     except:
         return None
 
-section="defaut"
+
+def cours_affiche_from_lesson(lesson_data):
+    if lesson_data.detention == True:
+        return 'RETENUE'
+    if lesson_data.subject:
+        return lesson_data.subject.name
+    else:
+        return 'autre'
+
+
+def build_cours_data(lesson_data):
+    return {
+        'id': lesson_data.id,
+        'date_heure': lesson_data.start.strftime("%d/%m/%Y, %H:%M"),
+        'date': lesson_data.start.strftime("%d/%m/%Y"),
+        'heure': lesson_data.start.strftime("%H:%M"),
+        'heure_fin': lesson_data.end.strftime("%H:%M"),
+        'cours': cours_affiche_from_lesson(lesson_data),
+        'salle': lesson_data.classroom,
+        'annulation': lesson_data.canceled,
+        'status': lesson_data.status,
+        'background_color': lesson_data.background_color,
+    }
+
+section = "defaut"
 if len(sys.argv) > 1:
     section = sys.argv[1]
 
@@ -103,24 +127,10 @@ if client.logged_in:
     jsondata['edt_aujourdhui_debut'] = ""
 
     for lesson in lessons_today:
-        index=lessons_today.index(lesson)
-        if not (lesson.start == lessons_today[index-1].start and lesson.canceled == True) :                    
-            if lesson.subject: cours_affiche = lesson.subject.name
-            else: cours_affiche = 'autre'
-            if lesson.detention == True: cours_affiche = 'RETENUE'
-            jsondata['edt_aujourdhui'].append({
-                'id': lesson.id,
-                'date_heure': lesson.start.strftime("%d/%m/%Y, %H:%M"),
-                'date': lesson.start.strftime("%d/%m/%Y"),
-                'heure': lesson.start.strftime("%H:%M"),
-                'heure_fin': lesson.end.strftime("%H:%M"),
-                'cours': cours_affiche,
-                'salle': lesson.classroom,
-                'annulation': lesson.canceled,
-                'status': lesson.status,
-                'background_color': lesson.background_color,
-            })
-        if lesson.canceled == False and jsondata['edt_aujourdhui_debut'] == '' :
+        index = lessons_today.index(lesson)
+        if not (lesson.start == lessons_today[index - 1].start and lesson.canceled == True):
+            jsondata['edt_aujourdhui'].append(build_cours_data(lesson))
+        if lesson.canceled == False and jsondata['edt_aujourdhui_debut'] == '':
             jsondata['edt_aujourdhui_debut'] = lesson.start.strftime("%H:%M")
 
 
@@ -130,48 +140,21 @@ if client.logged_in:
 
     for lesson in lessons_tomorrow:
 
-        index=lessons_tomorrow.index(lesson)
-        if not (lesson.start == lessons_tomorrow[index-1].start and lesson.canceled == True) :
-            if lesson.subject: cours_affiche = lesson.subject.name
-            else: cours_affiche = 'autre'
-            if lesson.detention == True: cours_affiche = 'RETENUE'
-            jsondata['edt_demain'].append({
-                'id': lesson.id,            
-                'date_heure': lesson.start.strftime("%d/%m/%Y, %H:%M"),
-                'date': lesson.start.strftime("%d/%m/%Y"),
-                'heure': lesson.start.strftime("%H:%M"),
-                'heure_fin': lesson.end.strftime("%H:%M"),            
-                'cours': cours_affiche,
-                'salle': lesson.classroom,
-                'annulation': lesson.canceled,
-                'status': lesson.status,
-                'background_color': lesson.background_color,
-            })
-        if lesson.canceled == False and jsondata['edt_demain_debut'] == '' :
+        index = lessons_tomorrow.index(lesson)
+        if not (lesson.start == lessons_tomorrow[index - 1].start and lesson.canceled == True):
+            jsondata['edt_demain'].append(build_cours_data(lesson))
+        if lesson.canceled == False and jsondata['edt_demain_debut'] == '':
             jsondata['edt_demain_debut'] = lesson.start.strftime("%H:%M")
 
     jsondata['edt_prochainjour'] = []
     jsondata['edt_prochainjour_debut'] = ""
     for lesson in lessons_nextday:
-        index=lessons_nextday.index(lesson)
-        if not (lesson.start == lessons_nextday[index-1].start and lesson.canceled == True) :
-            if lesson.subject: cours_affiche = lesson.subject.name
-            else: cours_affiche = 'autre'
-            if lesson.detention == True: cours_affiche = 'RETENUE'
-            jsondata['edt_prochainjour'].append({
-                'index': index,            
-                'id': lesson.id,            
-                'date_heure': lesson.start.strftime("%d/%m/%Y, %H:%M"),
-                'date': lesson.start.strftime("%d/%m/%Y"),
-                'heure': lesson.start.strftime("%H:%M"),
-                'heure_fin': lesson.end.strftime("%H:%M"),            
-                'cours': cours_affiche,
-                'salle': lesson.classroom,
-                'annulation': lesson.canceled,
-                'status': lesson.status,
-                'background_color': lesson.background_color,
-        })
-        if lesson.canceled == False and jsondata['edt_prochainjour_debut'] == '' :
+        index = lessons_nextday.index(lesson)
+        if not (lesson.start == lessons_nextday[index - 1].start and lesson.canceled == True):
+            lesson_to_append = build_cours_data(lesson)
+            lesson_to_append['index'] = index
+            jsondata['edt_prochainjour'].append(lesson_to_append)
+        if lesson.canceled == False and jsondata['edt_prochainjour_debut'] == '':
             jsondata['edt_prochainjour_debut'] = lesson.start.strftime("%H:%M")
             #print(json.dumps(jsondata['edt_prochainjour'], indent=4))
 
@@ -181,24 +164,11 @@ if client.logged_in:
         index=lessons_specific.index(lesson)
         if  (lesson.start == lessons_specific[index-1].start) :
             lesson.num
-        else: 
-            if lesson.subject: cours_affiche = lesson.subject.name
-            else: cours_affiche = 'autre'
-            if lesson.detention == True: cours_affiche = 'RETENUE'
-            jsondata['edt_date'].append({
-                'index': index,            
-                'id': lesson.id,            
-                'date_heure': lesson.start.strftime("%d/%m/%Y, %H:%M"),
-                'date': lesson.start.strftime("%d/%m/%Y"),
-                'heure': lesson.start.strftime("%H:%M"),
-                'heure_fin': lesson.end.strftime("%H:%M"),            
-                'cours': cours_affiche,
-                'salle': lesson.classroom,
-                'annulation': lesson.canceled,
-                'status': lesson.status,
-                'num': lesson.num,
-                'background_color': lesson.background_color,
-    })
+        else:
+            lesson_to_append = build_cours_data(lesson)
+            lesson_to_append['index'] = index
+            lesson_to_append['num'] = lesson.num
+            jsondata['edt_date'].append(lesson_to_append)
 
     #Récupération des notes 
     grades = client.current_period.grades
