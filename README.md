@@ -1,6 +1,6 @@
 # Pronote dans Homeassistant
 Ceci est un tutoriel pour intégrer Pronote dans Home assistant !  
-C'est une intégration mais qui n'est pas plug and play comme les inétégrations standard de HA.  
+C'est une intégration mais qui n'est pas plug and play comme les intégrations standard de HA.  
 Elle se base sur un script python que j'ai développé et qui est basé sur l'API wrapper [pronotepy](https://github.com/bain3/pronotepy).  
  
 ![Lovelace](screen-pronote1.png?raw=true "Screen Shot")
@@ -24,9 +24,9 @@ Pronote est une application en ligne déployée dans plusieurs milliers de coll�
 Elle permet aux élèves de voir leurs emploi du temps, leurs notes et leurs devoirs.  
 Vous pouvez voir une démo de l'application à l'adresse suivante :  
 
-https://demo.index-education.net/pronote/eleve.html?login=true 
-utlisateur : demonstration 
-mot de passe : pronotevs 
+> https://demo.index-education.net/pronote/eleve.html?login=true  
+* utlisateur : demonstration  
+* mot de passe : pronotevs  
 
 L'idée consiste donc à remonter ces informations (emploi du temps, note, devoirs, absence...) dans HA pour créer des automatisations comme :   
 - Régler l'heure de son réveil avec l'heure de début des cours du lendemain
@@ -48,37 +48,43 @@ L'idée consiste donc à remonter ces informations (emploi du temps, note, devoi
 ## 1. Installation de la lib pronotepy 
 
 Le script python que j'ai développé dépend d'une librairie python développé en open source : [pronotepy](https://github.com/bain3/pronotepy)
-(merci à [bain3](https://github.com/bain3).
-C'est cette librairie qui permet par exemple que le script se connecter à Pronote via les ENT (s'ils ont été implémenté et suportés par bain3)
+(merci à [bain3](https://github.com/bain3).  
+C'est cette librairie qui permet par exemple que le script se connecter à Pronote via les ENT (s'ils ont été implémentés et supportés par bain3)
 
-Pour installer cette librairie sur votre systeme, je vous conseille d'utiliser la commande pip ou pip3.  
-Commande : pip install pronotepy  
+Pour installer cette librairie sur votre système, je vous conseille d'utiliser la commande `pip` ou `pip3`.  
+Commande : `pip install pronotepy`  
 Recommandation : il est important de la mettre à jour régulièrement cette librairie.  
-Commande : pip install --upgrade pronotepy  
+Commande : `pip install --upgrade pronotepy`
 
 ## 2. Installation du script python 
 
 Je mets donc à disposition un script python [pronote.py](pronote.py).  
 Ce script permet de se connecter à Pronote et récupère toutes les informations dans un JSON.  
-Ce script utilise un fichier de configuration [config.ini] qui est initialisé avec le compte de demo de Pronote > reste à l'adapter à vos identifiants en changeant les variables dans la section defaut.
-Et si vous avez plusieurs enfants, ajouter une nouvel section comme    
-Il faut donc installer ce script ainsi que le fichier de configuration dans un dossier (nommé par exemple "python_script") dans le dossier /config de votre HA.  
-Ce script quand il est lancé génère un fichier pronote_AAAA.json qu'il dépose dans /config/www/ de votre HA.
-NB : AAAA est le nom de l'élève à paramétré dans le fichier de configuration.
+Ce script utilise un fichier de configuration [config.ini](config.ini) qui est initialisé avec le compte de démo de Pronote > reste à l'adapter à vos identifiants en changeant les variables dans la section defaut.  
+Et si vous avez plusieurs enfants, ajoutez une nouvelle section comme dans le fichier config.ini d'exemple.  
+  
+Il faut donc installer ce script ainsi que le fichier de configuration dans un dossier (nommé par exemple "python_script") dans le dossier `/config` de votre HA.  
+Ce script quand il est lancé génère un fichier JSON déposé dans /config/www/ de votre HA (comme défini via le paramètre `output` du fichier de config).
 
 ## 3. Exécution du script 
 
 Pour lancer le script il faut avoir accès en SSH et se placer dans le dossier créé précédement
-    cd /usr/share/hassio/homeassistant/python_scripts/
+```shell
+cd /usr/share/hassio/homeassistant/python_scripts/
+```
 Et lancer le script avec la commande 
-    python3 pronote.py 
-Et si vous avez créé une section pour un 2eme enfant dans le config.ini, alors : 
-    python3 pronote.py enfant1
-
+```shell
+python3 pronote.py
+```
+Et si vous avez créé une section pour un 2eme enfant dans le config.ini, alors :
+```shell
+python3 pronote.py enfant1
+```
 Il doit ensuite être lancé de façon régulière - toute les 5 ou 10 minutes - via la crontab par exemple.  
-Exemple : 
-    */10 * * * * /usr/bin/python3 /usr/share/hassio/homeassistant/python_scripts/pronote.py > /tmp/pronote.log 2>&1  
-
+Exemple :
+```shell
+*/10 * * * * /usr/bin/python3 /usr/share/hassio/homeassistant/python_scripts/pronote.py > /tmp/pronote.log 2>&1
+```
 ## 4. Configuration YAML pour récupérer l'emploi du temps dans un sensor
 
 Je fourni donc un fichier configuration.yaml [configuration.yaml](configuration.yaml)  à copier à l'intérieur de celui de votre HA.  
