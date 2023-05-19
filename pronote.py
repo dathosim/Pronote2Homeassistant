@@ -38,6 +38,7 @@ type_compte = config.get(section, "type_compte")
 username = config.get(section, "username")
 password = config.get(section, "password")
 ent = config.get(section, "ent")
+output = config.get(section, "output")
 
 ent = class_for_name('pronotepy.ent', ent)
 
@@ -297,14 +298,8 @@ if client.logged_in:
                 for acquisition in evaluation.acquisitions
             ]
         })
-    
-    
-    #print(json.dumps(jsondata['evaluation'], indent=4))
 
-
-
-    #Stockage dans un fichier json : edt + notes + devoirs 
-    with open(os.path.join(location, "../www/pronote_"+eleve_id+".json"), "a") as outfile:
+    # Stockage dans un fichier json : edt + notes + devoirs
+    with open(output, "a") as outfile:
         outfile.truncate(0)
         json.dump(jsondata, outfile, indent=4)
-    
