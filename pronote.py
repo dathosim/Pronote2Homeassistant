@@ -58,7 +58,7 @@ type_compte = config.get(section, "type_compte")
 username = config.get(section, "username")
 password = config.get(section, "password")
 ent = config.get(section, "ent")
-output = config.get(section, "output")
+output = config.get(section, "output", fallback=os.path.join(location, "../www/pronote_"+eleve_id+".json"))
 
 ent = class_for_name('pronotepy.ent', ent)
 
